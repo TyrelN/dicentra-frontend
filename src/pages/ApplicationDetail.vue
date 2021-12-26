@@ -1,0 +1,154 @@
+<template>
+  <div class="q-pt-xl center" style="">
+    <div
+      style="border-radius: 25px"
+      class="text-center flex flex-center q-ma-xl q-pa-xl shadow-14"
+    >
+      <object
+        v-if="loader"
+        width="250px"
+        height="230px"
+        type="image/svg+xml"
+        data="loadingcatcss.svg"
+        style="
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          margin-top: -100px;
+          margin-left: -125px;
+        "
+      ></object>
+      <div v-else class="row q-mx-xs">
+        <div class="col-12 q-pa-md">
+          <div v-for="[key, value] in Object.entries(answers)" :key="key">
+            <div class="text-dark">{{ key }}</div>
+            <q-input
+              dense
+              readonly
+              color="positive"
+              outlined
+              autogrow
+              label-color="dark"
+              :label="value ? value.toString() : ''"
+              hint=""
+            />
+          </div>
+        </div>
+      </div>
+      <div class="text-subtitle2 q-my-lg">
+        You can sort the applications into accepted, rejected and undecided
+        here:
+      </div>
+      <q-btn-toggle
+        v-if="isAuthenticated"
+        spread
+        push
+        class="q-my-lg"
+        style="margin: auto; width: 100%"
+        v-model="status"
+        toggle-color="positive"
+        toggle-text-color="dark"
+        :options="[
+          { label: 'Approve', value: 'approved' },
+          { label: 'Undecided', value: 'in_process' },
+          { label: 'Reject', value: 'rejected' },
+        ]"
+      />
+      <q-btn
+        v-if="isAuthenticated"
+        dense
+        size="14px"
+        color="positive"
+        text-color="dark"
+        :loading="loading"
+        @click="approveApplication"
+        class="shadow-12 q-ma-md"
+        padding="12px"
+        style="border-radius: 10px; width: 300px"
+        >Update Status</q-btn
+      >
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { useQuasar } from "quasar";
+import { api } from "../boot/axios.js";
+import { ref, computed, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import alert from "../components/alert";
+import {
+  adoptQuestions,
+  fosterQuestions,
+  volunteerQuestions,
+} from "../components/questions";
+const loader = ref(false);
+const store = useStore();
+const route = useRoute();
+const router = useRouter();
+const loading = computed(() => store.getters.loading);
+const isAuthenticated = computed(() => store.getters.isAuthenticated);
+const status = ref("in_process");
+const answers = ref({});
+const applicationData = ref({ question1: "yes" });
+const props = defineProps({
+  slug: String,
+  formtype: String,
+});
+
+let questionsToMap = {};
+const tempMap = new Map();
+
+async function approveApplication() {
+  store.commit("setLoading", true);
+  const formData = new FormData();
+  formData.append("status", status.value);
+  api
+    .patch(
+      "/api/v1/" + route.params.formtype + "/" + route.params.slug + "/",
+      formData
+    )
+    .then((response) => {
+      store.commit("setLoading", false);
+      alert("Application status updated", "dark", "primary");
+      router.push("/applicationlist");
+    })
+    .catch((error) => {
+      store.commit("setLoading", false);
+      alert(error.message, "red-5", "primary");
+    });
+}
+
+async function loadData() {
+  loader.value = true;
+  api
+    .get("/api/v1/" + route.params.formtype + "/" + route.params.slug)
+    .then((response) => {
+      loader.value = false;
+      applicationData.value = response.data;
+      switch (route.params.formtype) {
+        case "adoptforms":
+          questionsToMap = adoptQuestions;
+          break;
+        case "fosterforms":
+          questionsToMap = fosterQuestions;
+          break;
+        case "volunteerforms":
+          questionsToMap = volunteerQuestions;
+          break;
+      }
+      for (const key in questionsToMap) {
+        tempMap.set(`${questionsToMap[key]}`, applicationData.value[key]);
+        answers.value = Object.fromEntries(tempMap);
+      }
+    })
+    .catch((error) => {
+      loader.value = false;
+      alert(error.message, "red-5", "primary");
+    });
+}
+
+onMounted(loadData);
+</script>

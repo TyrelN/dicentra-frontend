@@ -3,8 +3,8 @@
     class="q-my-xl row items-center text-dark"
     style="max-width: 900px; margin: 0 auto"
   >
-    <div class="col q-mx-md q-my-lg" style="border-radius: 25px">
-      <div class="text-h2 text-center q-ma-sm">Every contribution counts!</div>
+    <div class="col q-mx-md q-my-xl" style="border-radius: 25px">
+      <div class="text-h3 text-center q-ma-sm">Donate</div>
       <div class="text q-ma-xl">
         If you would like to support our rescue work at NVARS, you may safely
         donate using one of the following methods:

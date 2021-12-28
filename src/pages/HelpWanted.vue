@@ -1,8 +1,12 @@
 <template>
   <div
-    class="q-pa-md"
+    class="q-pa-md q-my-xl"
     style="max-width: 500px margin: auto; text-align: center"
   >
+  <div class="text-h3 text-center">Help Wanted</div>
+      <div class="text q-ma-md">
+        We're always looking for kind volunteers to help us with the challenges that come with running a rescue!
+      </div>
     <q-btn
       v-if="isAuthenticated"
       dense
@@ -21,13 +25,7 @@
       height="230px"
       type="image/svg+xml"
       data="loadingcatcss.svg"
-      style="
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        margin-top: -100px;
-        margin-left: -125px;
-      "
+      class="absolute-center"
     ></object>
     <q-intersection
       v-else
@@ -35,7 +33,7 @@
       :key="ad.slug"
       once
       transition="scale"
-      class=""
+      class="q-py-sm"
       style="margin: auto; max-width: 600px"
     >
       <q-card class="shadow-12 bg-primary q-ma-sm text-dark">

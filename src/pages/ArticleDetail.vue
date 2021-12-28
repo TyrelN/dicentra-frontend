@@ -1,6 +1,5 @@
 <template>
   <div
-    class="relative-position"
     style="justify-content: center; margin: auto; align-items: center; max-width: 900px"
   >
    <object
@@ -9,13 +8,7 @@
       height="230px"
       type="image/svg+xml"
       data="loadingcatcss.svg"
-      style="
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        margin-top: -100px;
-        margin-left: -125px;
-      "
+      class="absolute-center"
     ></object>
     <div
       v-else

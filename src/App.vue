@@ -10,11 +10,7 @@ export default defineComponent({
   store.commit('initializeStore');
   store.commit('setLoading', false);
   const token = store.getters.token
-  if(token){
-    api.defaults.headers.common['Authorization'] = 'Token ' + token;
-  } else{
-    api.defaults.headers.common['Authorization'] = "";
-  }
+  api.defaults.headers.common['Authorization'] = token ? 'Token ' + token : "";
 },
 })
 </script>

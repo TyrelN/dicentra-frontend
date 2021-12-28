@@ -98,6 +98,7 @@ function onSubmit() {
   api
     .post("/api/v1/token/login/", formData) //djoser url
     .then((response) => {
+      //store logged in token on browser
       store.commit("setLoading", false);
       const token = response.data.auth_token;
 

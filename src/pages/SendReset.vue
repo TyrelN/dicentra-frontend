@@ -69,7 +69,6 @@ const email = ref("");
 const backenderrors = ref([]);
 
 function onSubmit() {
-  //form creation and post
   store.commit("setLoading", true);
   backenderrors.value = [];
   const formData = new FormData();

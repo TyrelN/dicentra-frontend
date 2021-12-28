@@ -1,6 +1,6 @@
 <template>
-  <div class="q-pa-md q-ma-xl">
-    <div style="margin: auto; text-align: center">
+  <div class="q-mt-xl">
+    <div style="text-align: center;">
       <q-btn
         v-if="isAuthenticated"
         dense
@@ -32,17 +32,11 @@
       height="230px"
       type="image/svg+xml"
       data="loadingcatcss.svg"
-      style="
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        margin-top: -100px;
-        margin-left: -125px;
-      "
+      class="absolute-center"
     ></object>
-    <div v-else>
-      <div v-if="latestArticle" class="q-ma-xl">
-        <q-card v-if="$q.screen.gt.sm" class="my-card" flat>
+    <div v-else style="margin:auto; max-width: 1130px;">
+      <div v-if="latestArticle">
+        <q-card v-if="$q.screen.gt.sm" class="q-ma-xl" flat>
           <q-card-section horizontal>
             <q-card-section class="col-5">
               <div class="text-h6 text-positive text-center">
@@ -73,7 +67,7 @@
                     "
                     outline
                     color="dark q-my-md"
-                    style="width: 100px"
+                    style="width: 200px"
                   >
                     Read
                   </q-btn>
@@ -98,8 +92,8 @@
           </q-card-section>
         </q-card>
 
-        <q-card v-if="$q.screen.lt.md" class="my-card" flat>
-          <q-img class="" :src="latestArticle.header_image" />
+        <q-card v-else class="q-ma-xl" flat>
+          <q-img :src="latestArticle.header_image" />
           <q-card-section horizontal style="opacity: 0.6">
             <div class="text-subtitle2 q-mx-md">
               {{ latestArticle.created_on }}
@@ -127,6 +121,7 @@
                 outline
                 class="col-4"
                 color="dark"
+                width="200px"
               >
                 Read
               </q-btn>
@@ -148,7 +143,7 @@
         </q-card>
       </div>
 
-      <div class="row justify-center q-gutter-sm q-ma-xl">
+      <div class="row justify-center q-gutter-xl">
         <q-intersection
           v-for="article in articles"
           :key="article.slug"
@@ -156,8 +151,8 @@
           transition="scale"
           class="card-item"
         >
-          <q-card class="q-ma-md">
-            <q-img :src="article.header_image"> </q-img>
+          <q-card class="q-mx-lg q-my-lg">
+            <q-img :src="article.header_image" width="290px" height="290px"/>
             <q-card-section horizontal style="opacity: 0.6">
               <div class="text-subtitle2 q-mx-md">{{ article.created_on }}</div>
               <q-space></q-space>
@@ -174,7 +169,7 @@
                   @click="$router.push('/articledetail/' + article.slug)"
                   outline
                   color="dark"
-                  style="width: 100px; margin: auto"
+                  style="width: 200px; margin: auto"
                 >
                   Read
                 </q-btn>
@@ -194,6 +189,7 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import { useQuasar } from "quasar";
 import { api } from "../boot/axios";
@@ -252,11 +248,4 @@ function deleteArticle(slug) {
 
 onMounted(getArticles);
 </script>
-<style lang="sass" scoped>
-.card-item
-  height: 290px
-  width: 290px
-.my-card
-  margin: auto
-  max-width: 900px
-</style>
+

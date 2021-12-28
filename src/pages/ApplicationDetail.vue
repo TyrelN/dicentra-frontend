@@ -10,13 +10,7 @@
         height="230px"
         type="image/svg+xml"
         data="loadingcatcss.svg"
-        style="
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          margin-top: -100px;
-          margin-left: -125px;
-        "
+        class="absolute-center"
       ></object>
       <div v-else class="row q-mx-xs">
         <div class="col-12 q-pa-md">

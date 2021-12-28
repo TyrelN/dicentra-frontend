@@ -19,7 +19,11 @@
         class="shadow-14 q-ma-xl q-pa-xl q-gutter-xl text-dark"
       >
         <div class="text-center text-h4 q-ma-xs">
-          <div>APPLICATION</div>
+          APPLY
+          <div class="text-subtitle2 q-mt-md">
+            All potential adopters, fosters and volunteers may fill out this
+            form to apply
+          </div>
         </div>
         <div class="row q-mx-xs">
           <div class="col-xs-12 col-md-6 q-px-md">
@@ -301,8 +305,10 @@ function onSubmit() {
         questions[question] = questions[question].toString();
       }
     }
+    //use the spread operator to add all form entries to formData
     const formData = {
       ...contact.value,
+      //we need to ensure call times is a string and not an array to match the database field
       calltimes: contact.value.calltimes.toString().replace(/,/g, ", "), //adds spaces to the created string from the array for readability
       ...questions, //spread operator to append every question here
     };
@@ -326,10 +332,12 @@ function onSubmit() {
         return;
     }
     store.commit("setLoading", true);
+    //submit the form using the given forms questions
     api
       .post("/api/v1/" + formURL, formData)
       .then((response) => {
         store.commit("setLoading", false);
+        //wipe the local storage answers
         localStorage.removeItem("contact");
         localStorage.removeItem(activeQuestions);
         alert("application submitted", "dark", "primary");
@@ -367,6 +375,7 @@ function load() {
   }
 }
 function localUpdate() {
+  //store contact object each time a value is set
   const parsed = JSON.stringify(contact.value);
   localStorage.setItem("contact", parsed);
 }

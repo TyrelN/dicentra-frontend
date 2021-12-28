@@ -20,7 +20,7 @@
             round
             aria-label="youtube"
             type="a"
-            href="https://www.youtube.com/"
+            href="https://www.youtube.com/channel/UCZfNm73eDT_nkG4-GgHSkrg/featured"
             rel="noopener"
             target="_blank"
           />

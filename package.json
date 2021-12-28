@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.0.1",
   "description": "A web platform for volunteers, fosters and homes looking to help the animals of Nicola Valley thrive.",
-  "productName": "Nicola Valley Animal Rescue Society",
+  "productName": "Nicola Valley Animal Rescue",
   "author": "tyreln <tyrelnarciso@hotmail.com>",
   "private": true,
   "scripts": {

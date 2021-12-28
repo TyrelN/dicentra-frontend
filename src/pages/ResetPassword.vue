@@ -84,6 +84,7 @@ const props = defineProps({
   token: String,
 });
 function onSubmit() {
+  //resets password using djoser url, then logs out user
   store.commit("setLoading", true);
   backenderrors.value = [];
   api
@@ -92,7 +93,7 @@ function onSubmit() {
       token: route.params.token,
       new_password: newPassword.value,
       re_new_password: reNewPassword.value,
-    }) //djoser url
+    })
     .then((response) => {
       store.commit("setLoading", false);
       //logout user on client side

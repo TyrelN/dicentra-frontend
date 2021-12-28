@@ -1,24 +1,37 @@
 <template>
   <div>
     <div
+      v-if="$q.platform.is.mobile"
       class="relative-position"
       style="bottom: 8vh"
     >
-      <video autoplay="" loop="" muted="true" id="myVideo" poster="../assets/cat20re.webp">
+      <q-img src="../assets/spookycrawl.webp" height="40vh" fit="cover" />
+      <div class="bg-info q-pa-md absolute-bottom text-primary text-center">
+        <div class="text-h3" style="font-size: 2.4rem">
+          Nicola Valley Animal Rescue
+        </div>
+      </div>
+    </div>
+    <div v-else class="relative-position" style="bottom: 5vh">
+      <video
+        preload="auto"
+        autoplay=""
+        loop=""
+        muted="true"
+        id="myVideo"
+        poster="../assets/spookycrawl.webp"
+      >
         <source
-          src="https://res.cloudinary.com/nicola-valley-animal-rescue/video/upload/c_crop,dpr_auto,f_auto,q_auto:good,w_1366/v1639353531/media/spooky1080Optimized_dbcchl.mp4"
+          src="https://res.cloudinary.com/nicola-valley-animal-rescue/video/upload/c_crop,dpr_auto,f_auto,q_auto:good,w_1700,h_600/v1639353531/media/spooky1080Optimized_dbcchl.mp4"
           type="video/mp4; codecs=hvc1"
         />
         <source
-          src="https://res.cloudinary.com/nicola-valley-animal-rescue/video/upload/c_crop,dpr_auto,f_auto,q_auto:good,w_1366/v1639353531/media/spooky1080Optimized_dbcchl.mp4"
+          src="https://res.cloudinary.com/nicola-valley-animal-rescue/video/upload/c_crop,dpr_auto,f_auto,q_auto:good,w_1700,h_600/v1639353531/media/spooky1080Optimized_dbcchl.mp4"
           type="video/webm; codecs=vp9"
         />
       </video>
-      <div
-        class="bg-info q-pa-md absolute-bottom text-primary text-center"
-        style=""
-      >
-        <div class="text-h3" style="font-size: 3rem">
+      <div class="bg-info q-pa-md absolute-bottom text-primary text-center">
+        <div class="text-h3" style="max-font-size: 3rem">
           Nicola Valley Animal Rescue
         </div>
         <div class="text-subtitle1 q-ma-sm">
@@ -26,53 +39,51 @@
         </div>
       </div>
     </div>
-
     <div class="relative-position text-center">
-      <object 
+      <object
         v-if="loader"
         width="250px"
         height="230px"
         type="image/svg+xml"
         data="loadingcatcss.svg"
       ></object>
-      <div v-else class="relative-position q-mx-xl q-px-xl" style="bottom: 6vh">
+      <div
+        v-else-if="current"
+        class="relative-position q-px-lg"
+        style="bottom: 4vh; max-width: 1300px; margin: auto"
+      >
         <div class="row">
-          <div class="text-h4" style="opacity: 0.6; width: 100%">
-            What's new:
-          </div>
-
-          <div class="col-xs-12 col-md-6 text-left q-pl-xl">
-            <div class="q-ma-xl text3" style="opacity: 0.6">
+          <div class="col-xs-12 col-md-6 text-left">
+            <div class="q-my-xl" style="opacity: 0.6; font-size: 1.5rem">
               {{ current.message }}
             </div>
           </div>
-          <div class="col-xs-12 col-md-6 q-pa-md">
+          <div class="col-xs-12 col-md-6">
             <q-img
               loading="eager"
-              height="40vh"
+              height="45vh"
               style="border-radius: 10px"
               :src="current.get_image"
             />
           </div>
         </div>
-
-        <div style="margin: auto; text-align: center">
-          <q-btn
-            v-if="isAuthenticated"
-            dense
-            size="14px"
-            color="positive"
-            text-color="dark"
-            @click="$router.push('/currenteventadmin')"
-            class="shadow-12 q-ma-md"
-            padding="12px"
-            style="border-radius: 10px; width: 300px"
-            >Post a current event</q-btn
-          >
-        </div>
+      </div>
+      <div style="margin: auto; text-align: center">
+        <q-btn
+          v-if="isAuthenticated"
+          dense
+          size="14px"
+          color="positive"
+          text-color="dark"
+          @click="$router.push('/currenteventadmin')"
+          class="shadow-12 q-ma-md"
+          padding="12px"
+          style="border-radius: 10px; width: 300px"
+          >Post a current event</q-btn
+        >
       </div>
       <div class="q-mx-md q-px-xl text-center">
-        <div class="text-h2 q-mt-lg" style="opacity: 0.6">
+        <div class="text-h2 q-my-lg" style="opacity: 0.6">
           Make a Difference
         </div>
         <div
@@ -135,7 +146,7 @@
         </div>
 
         <q-btn
-          class="q-ma-xl"
+          class="q-my-xl"
           @click="$router.push('/forms')"
           color="dark"
           style="width: 200px"
@@ -144,7 +155,7 @@
         </q-btn>
       </div>
       <div class="q-mx-xl" style="margin: auto; max-width: 850px">
-        <div class="col q-mx-lg q-mt-lg">
+        <div class="col q-mx-md q-mt-lg q-px-md">
           <q-img style="border-radius: 10px" src="../assets/luckyspooky.webp" />
         </div>
       </div>
@@ -177,7 +188,7 @@
         </q-btn>
       </div>
       <div class="q-mx-xl" style="margin: auto; max-width: 850px">
-        <div class="col q-mx-lg q-mt-lg">
+        <div class="col q-mx-md q-mt-lg q-px-md">
           <q-img style="border-radius: 10px" src="../assets/cat8re.webp" />
         </div>
       </div>
@@ -223,13 +234,13 @@ const current = ref({});
 const loader = ref(false);
 const isAuthenticated = computed(() => store.getters.isAuthenticated);
 async function getCurrent() {
+  //loader acts as a loading animation until requested data arrives
   loader.value = true;
   api
     .get("/api/v1/currentevent/")
     .then((response) => {
       loader.value = false;
       current.value = response.data[0];
-      console.log(JSON.stringify(current.value))
     })
     .catch((error) => {
       loader.value = false;

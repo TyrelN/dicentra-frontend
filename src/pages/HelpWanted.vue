@@ -5,7 +5,7 @@
   >
   <div class="text-h3 text-center">Help Wanted</div>
       <div class="text q-ma-md">
-        We're always looking for kind volunteers to help us with the challenges that come with running a rescue!
+        Our posts are consistently updated!
       </div>
     <q-btn
       v-if="isAuthenticated"
@@ -77,6 +77,7 @@ import { useQuasar } from "quasar";
 import { api } from "../boot/axios.js";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
+import alert from "../components/alert";
 const store = useStore();
 
 const isAuthenticated = computed(() => store.getters.isAuthenticated);

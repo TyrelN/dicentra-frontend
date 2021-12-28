@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pt-xl text2 text-weight-medium center" style="">
+  <div class="q-pt-xl text2 text-weight-medium center text-dark">
     <div style="margin: auto; text-align: center">
       <q-btn
         v-if="isAuthenticated"
@@ -16,7 +16,7 @@
     <q-form @submit="onSubmit">
       <div
         style="border-radius: 25px"
-        class="shadow-14 q-ma-xl q-pa-xl q-gutter-xl text-dark"
+        class="shadow-14 q-ma-xl q-px-md q-py-xl q-gutter-xl"
       >
         <div class="text-center text-h4 q-ma-xs">
           APPLY
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="row q-mx-xs">
-          <div class="col-xs-12 col-md-6 q-px-md">
+          <div class="col-xs-12 col-sm-6 q-px-md">
             <q-input
               @blur="localUpdate"
               dense
@@ -39,7 +39,7 @@
               :rules="[(val) => (val && val.length > 0) || 'Field required']"
             />
           </div>
-          <div class="col-xs-12 col-md-6 q-px-md">
+          <div class="col-xs-12 col-sm-6 q-px-md">
             <q-input
               @blur="localUpdate"
               dense
@@ -54,7 +54,7 @@
               ]"
             />
           </div>
-          <div class="col-xs-12 col-md-8 q-pa-md">
+          <div class="col-xs-12 col-sm-8 q-pa-md">
             <q-input
               @blur="localUpdate"
               dense
@@ -67,7 +67,7 @@
               :rules="[(val) => (val && val.length > 0) || 'Field required']"
             />
           </div>
-          <div class="col-xs-12 col-md-4 q-pa-md">
+          <div class="col-xs-12 col-sm-4 q-pa-md">
             <q-input
               @blur="localUpdate"
               dense
@@ -84,7 +84,7 @@
               ]"
             />
           </div>
-          <div class="col-xs-12 col-md-8 q-pa-md">
+          <div class="col-xs-12 col-sm-8 q-pa-md">
             <q-input
               @blur="localUpdate"
               dense
@@ -97,7 +97,7 @@
               :rules="[(val) => (val && val.length > 0) || 'Field required']"
             />
           </div>
-          <div class="col-xs-12 col-md-4 q-pa-md">
+          <div class="col-xs-12 col-sm-4 q-pa-md">
             <q-input
               @blur="localUpdate"
               dense
@@ -110,7 +110,7 @@
               :rules="[(val) => (val && val.length > 0) || 'Field required']"
             />
           </div>
-          <div class="col-xs-12 col-md-6 q-pa-md">
+          <div class="col-xs-12 col-sm-6 q-pa-md">
             <q-input
               @blur="localUpdate"
               dense
@@ -124,7 +124,7 @@
               :rules="[(val) => (val && val.length > 0) || 'Field required']"
             />
           </div>
-          <div class="col-xs-12 col-md-6 q-pa-md">
+          <div class="col-xs-12 col-sm-6 q-pa-md">
             <q-select
               @blur="localUpdate"
               dense
@@ -135,7 +135,7 @@
               label="Phone Type"
             />
           </div>
-          <div class="col-xs-12 col-md-6 q-pa-md">
+          <div class="col-xs-12 col-sm-6 q-pa-md">
             <q-input
               @blur="localUpdate"
               dense
@@ -149,7 +149,7 @@
               :rules="[(val) => (val && val.length > 0) || 'Field required']"
             />
           </div>
-          <div class="col-xs-12 col-md-6 q-pa-md">
+          <div class="col-xs-12 col-sm-6 q-pa-md">
             <q-select
               @blur="localUpdate"
               dense
@@ -160,7 +160,7 @@
               label="Phone Type"
             />
           </div>
-          <div class="col-xs-12 col-md-6 q-pa-md">
+          <div class="col-xs-12 col-sm-6 q-pa-md">
             <q-input
               @blur="localUpdate"
               dense
@@ -174,7 +174,7 @@
               :rules="[(val) => (val && val.length > 0) || 'Field required']"
             />
           </div>
-          <div class="col-xs-12 col-md-6 q-pa-md">
+          <div class="col-xs-12 col-sm-6 q-pa-md">
             <q-select
               @blur="localUpdate"
               dense

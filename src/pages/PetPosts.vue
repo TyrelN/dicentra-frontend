@@ -124,6 +124,7 @@ import { useQuasar } from "quasar";
 import { api } from "../boot/axios.js";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
+import alert from "../components/alert";
 const $q = useQuasar();
 const loader = ref(false);
 const store = useStore();

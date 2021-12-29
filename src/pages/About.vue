@@ -93,7 +93,7 @@
             We have no means of finding abandoned cats in the region unless
             notified. The sooner we are aware, the quicker we can spay/neuter
             them. Cats can easily reproduce three times annually, with kittens
-            able to reproduce at six months old. Left unchecked, the localcat
+            able to reproduce at six months old. Left unchecked, the local cat
             population will only continue to explode. Repeated litters also put
             pressure on the cats themselves with an expanding community that is
             starving and abandoned.

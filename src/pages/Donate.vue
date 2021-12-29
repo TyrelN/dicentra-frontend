@@ -15,6 +15,7 @@
           E-transfers will be available to be sent to donate@NVARS.com and are not subject to the
           fees associated with the other methods, meaning we get all of it!
         </div>
+        <iframe src="https://donorbox.org/embed/animal-rescue-donations" name="donorbox" allowpaymentrequest="allowpaymentrequest" seamless="seamless" frameborder="0" scrolling="no" height="900px" width="100%" style="max-width: 500px; min-width: 250px; max-height:none!important"></iframe>
         <div class="text-h6 q-ma-lg text-center">Credit card  donations will be available here soon!</div>
          <div class="text-h6 q-ma-lg text-center">Paypal dontations will be available here soon!</div>
       </div>
@@ -22,4 +23,3 @@
   </div>
 </template>
 
-<script setup></script>

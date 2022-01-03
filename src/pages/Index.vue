@@ -252,4 +252,5 @@ async function getCurrent() {
     });
 }
 onMounted(getCurrent);
+
 </script>

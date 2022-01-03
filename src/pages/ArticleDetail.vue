@@ -12,7 +12,7 @@
     ></object>
     <div
       v-else
-      class="q-ma-xl q-pa-xl shadow-14 text-center"
+      class="q-py-xl q-mx-md q-my-xl q-px-xl shadow-14 text-center"
       style="border-radius: 25px"
     >
       <div class="text-h3 text-dark q-mb-sm">{{ article.title }}</div>
@@ -61,15 +61,6 @@
       >
         {{ article.content_third }}
       </p>
-      <q-img
-        v-if="article.content_image_third"
-        class="col-7"
-        :src="article.content_image_third"
-      >
-      </q-img>
-      <div v-if="article.caption_third" class="text-subtitle text-center">
-        {{ article.caption_third }}
-      </div>
       <p
         v-if="article.url1"
         class="text-body text text-dark q-pa-sm"
@@ -97,6 +88,14 @@
 import { api } from "../boot/axios";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import { useMeta } from "quasar";
+useMeta({
+  title: "Article Detail",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Page for viewing a specific article"}
+  }
+});
 const route = useRoute();
 const loader = ref(false);
 const props = defineProps({

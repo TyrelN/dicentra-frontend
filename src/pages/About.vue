@@ -192,7 +192,7 @@
           </div>
           <div class="col-12 q-mt-md text" style="opacity: 0.8">
             Donations, volunteers, fosters, informants and good homes. There are
-            many ways you can help us on our journey towards a Merritt where
+            many ways you can help us on our journey towards a British Columbia where
             everyone treats each other with care.
           </div>
           <q-btn
@@ -210,6 +210,15 @@
 
 <script setup>
 import { ref } from "vue";
+
+import { useMeta } from "quasar";
+useMeta({
+  title: "About Us",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"A page for learning more about our values as an animal rescue"}
+  }
+});
 const slide = ref(1);
 const autoplay = ref(true);
 </script>

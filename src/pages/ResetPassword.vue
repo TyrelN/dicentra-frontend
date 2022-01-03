@@ -69,7 +69,15 @@ import { api } from "../boot/axios.js";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
-import alert from "../components/alert.js";
+import alert from "../utils/alert.js";
+import { useMeta } from "quasar";
+useMeta({
+  title: "Password Reset",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Reset page for admin passwords"}
+  }
+});
 const $q = useQuasar();
 const store = useStore();
 const loading = computed(() => store.getters.loading);

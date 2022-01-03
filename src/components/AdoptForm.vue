@@ -440,7 +440,7 @@
 <script setup>
 import { ref, shallowRef, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import {adoptQuestions} from '../components/questions'
+import {adoptQuestions} from '../utils/questions'
 const questions = ref({
   question1: "",
   question2: "",

@@ -32,5 +32,12 @@
 </template>
 
 <script setup>
-
+import { useMeta } from "quasar";
+useMeta({
+  title: "Success",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Successful applications lead to this page"}
+  }
+});
 </script>

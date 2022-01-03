@@ -287,7 +287,7 @@
 <script setup>
 import { ref, shallowRef, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import {fosterQuestions} from '../components/questions'
+import {fosterQuestions} from '../utils/questions'
 const questions = ref({
   question1: "",
   question2: "",

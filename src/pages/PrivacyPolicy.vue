@@ -187,5 +187,13 @@
 </template>
 
 <script setup>
+import { useMeta } from "quasar";
+useMeta({
+  title: "Privacy Policy",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Page describing the privacy policy NVARS upholds"}
+  }
+});
 
 </script>

@@ -10,6 +10,24 @@
 const ESLintPlugin = require('eslint-webpack-plugin');
 const { QCarousel } = require('quasar');
 const { configure } = require('quasar/wrappers');
+const SitemapPlugin = require('sitemap-webpack-plugin').default
+
+const paths=[
+  { path: '/'},
+  { path: '/about'},
+  { path: '/donate'},
+  { path: '/helpwanted'},
+  { path: '/articles'},
+  { path: '/petposts'},
+  { path: '/forms'},
+  { path: '/applicationlist'},
+  { path: '/sendreset'},
+  { path: '/privacy'},
+  { path: '/portal'},
+  { path: '/currenteventadmin'},
+
+]
+
 
 module.exports = configure(function (ctx) {
   return {
@@ -47,7 +65,7 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
       devtool: "source-map",
       //distDir: ctx.mode.spa ? 'vercel-public' : null,
       // transpile: false,
@@ -64,12 +82,21 @@ module.exports = configure(function (ctx) {
       // showProgress: false,
       // gzip: true,
       // analyze: true,
-
+      extendWebpack(cfg) {
+          cfg.plugins.push(new SitemapPlugin({ base: 'https://nvars.ca', paths, options: {
+            filename: 'sitemap.xml',
+            lastmod: true,
+            changefreq: 'weekly',
+            priority: 0.8,
+          }
+        }))
+      },
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
-
+      
       // https://v2.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
+
       chainWebpack (chain) {
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: [ 'js', 'vue' ] }])
@@ -98,7 +125,7 @@ module.exports = configure(function (ctx) {
       directives: [],
 
       // Quasar plugins
-      plugins: ['Notify', 'Dialog']
+      plugins: ['Notify', 'Dialog', 'Meta']
     },
 
     // animations: 'all', // --- includes all animations

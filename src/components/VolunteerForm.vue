@@ -249,7 +249,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import {volunteerQuestions} from '../components/questions'
+import {volunteerQuestions} from '../utils/questions'
 const route = useRoute();
 const props = defineProps({
   position: String

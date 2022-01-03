@@ -4,12 +4,12 @@
     style="
       justify-content: center;
       align-items: center;
-      max-width: 600px;
+      max-width: 750px;
       margin: 0 auto;
     "
   >
     <div
-      class="q-ma-xl q-pa-xl"
+      class="q-ma-lg q-pa-xl"
       style="border-radius: 25px"
       :class="`shadow-14`"
     >
@@ -17,7 +17,7 @@
         <div style="margin: auto; text-align: center">
           <div>Create a Help Wanted Post</div>
         </div>
-        <div class="col q-pa-xl" style="margin: auto; max-width: 400px">
+        <div class="col q-py-xl q-px-sm" style="margin: auto; max-width: 400px">
           <q-input
             class="q-mb-md"
             dense
@@ -66,8 +66,16 @@ import { api } from "../boot/axios";
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
-import alert from "../components/alert";
+import alert from "../utils/alert";
 import { useStore } from "vuex";
+import { useMeta } from "quasar";
+useMeta({
+  title: "Help Wanted Create",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Page for creating and updating Help Wanted Posts"}
+  }
+});
 const store = useStore();
 const loading = computed(() => store.getters.loading);
 const route = useRoute();

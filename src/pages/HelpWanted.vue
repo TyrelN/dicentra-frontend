@@ -1,6 +1,6 @@
 <template>
   <div
-    class="q-pa-md q-my-xl"
+    class="q-mt-lg"
     style="max-width: 500px margin: auto; text-align: center"
   >
   <div class="text-h3 text-center">Help Wanted</div>
@@ -77,7 +77,15 @@ import { useQuasar } from "quasar";
 import { api } from "../boot/axios.js";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import alert from "../components/alert";
+import alert from "../utils/alert";
+import { useMeta } from "quasar";
+useMeta({
+  title: "Help Wanted",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"View the volunteer positions we are currently in need of"}
+  }
+});
 const store = useStore();
 
 const isAuthenticated = computed(() => store.getters.isAuthenticated);

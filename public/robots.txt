@@ -1,0 +1,3 @@
+User-agent: *
+Allow: All
+sitemap:https://nvars.ca/sitemap.xml

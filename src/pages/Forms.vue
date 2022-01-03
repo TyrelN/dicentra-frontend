@@ -252,7 +252,16 @@ import AdoptForm from "../components/AdoptForm.vue";
 import FosterForm from "../components/FosterForm.vue";
 import VolunteerForm from "../components/VolunteerForm.vue";
 import { api } from "../boot/axios";
-import alert from "../components/alert.js";
+import alert from "../utils/alert.js";
+
+import { useMeta } from "quasar";
+useMeta({
+  title: "Apply",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Apply to volunteer, adopt or foster with our rescue"}
+  }
+});
 
 const route = useRoute();
 const props = defineProps({

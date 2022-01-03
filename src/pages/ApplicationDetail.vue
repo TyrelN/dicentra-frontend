@@ -72,12 +72,20 @@ import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import alert from "../components/alert";
+import alert from "../utils/alert";
 import {
   adoptQuestions,
   fosterQuestions,
   volunteerQuestions,
-} from "../components/questions";
+} from "../utils/questions";
+import { useMeta } from "quasar";
+useMeta({
+  title: "Application Detail",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"The details of a specific application"}
+  }
+});
 const loader = ref(false);
 const store = useStore();
 const route = useRoute();

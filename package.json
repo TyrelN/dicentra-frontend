@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.0.1",
-  "description": "A web platform for volunteers, fosters and homes looking to help the animals of Nicola Valley thrive.",
+  "description": "Apply to home or help animals, learn about proper care and donate to the Nicola Valley Animal Rescue located in Merritt, British Columbia.",
   "productName": "Nicola Valley Animal Rescue",
   "author": "tyreln <tyrelnarciso@hotmail.com>",
   "private": true,
@@ -28,7 +28,8 @@
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.0.0",
-    "eslint-webpack-plugin": "^2.4.0"
+    "eslint-webpack-plugin": "^2.4.0",
+    "sitemap-webpack-plugin": "^1.1.1"
   },
   "browserslist": [
     "last 10 Chrome versions",

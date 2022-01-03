@@ -1,21 +1,18 @@
 <template>
   <div
     class="q-pt-xl relative-position"
-    style="max-width: 1200px; margin: 0 auto"
+    style="max-width: 750px; margin: 0 auto"
   >
     <div
-      class="q-ma-xl q-pa-xl"
+      class="q-ma-lg q-py-xl q-px-sm"
       style="border-radius: 25px"
       :class="`shadow-14`"
     >
       <q-form @submit="onSubmit">
-        <div style="margin: auto; text-align: center">
+        <div style="text-align: center">
           <div>Create an Article</div>
         </div>
-        <div
-          class="col q-gutter-md q-pa-xl"
-          style="margin: auto; max-width: 600px"
-        >
+        <div class="col q-pa-xl" style="margin: auto; max-width: 600px">
           <q-input
             class="q-mb-md"
             dense
@@ -27,6 +24,7 @@
             :rules="[(val) => (val && val.length > 0) || 'Field required']"
           />
           <q-select
+            class="q-mb-md"
             dense
             color="positive"
             outlined
@@ -96,6 +94,7 @@
             hint="caption for second content image"
           />
           <q-input
+            class="q-mb-lg"
             dense
             color="positive"
             outlined
@@ -104,24 +103,8 @@
             v-model="article.content_third"
             hint="Optional body of text"
           />
-          <q-file
-            style="max-width: 300px"
-            v-model="contentImageThird"
-            filled
-            label="Third Content Image (Optional)"
-            accept=".jpg, image/*"
-            @rejected="onRejected"
-          />
           <q-input
             class="q-mb-md"
-            dense
-            color="positive"
-            outlined
-            label="optional"
-            v-model="article.caption_third"
-            hint="caption for third content image"
-          />
-          <q-input
             dense
             color="positive"
             outlined
@@ -130,6 +113,7 @@
             hint="Link 1"
           />
           <q-input
+            class="q-mb-md"
             dense
             color="positive"
             outlined
@@ -138,6 +122,7 @@
             hint="Link 2"
           />
           <q-input
+            class="q-mb-md"
             dense
             color="positive"
             outlined
@@ -146,6 +131,7 @@
             hint="Link 3"
           />
           <q-input
+            class="q-mb-md"
             dense
             color="positive"
             outlined
@@ -189,8 +175,16 @@ import { api } from "../boot/axios";
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
-import alert from "../components/alert";
+import alert from "../utils/alert";
 import { useStore } from "vuex";
+import { useMeta } from "quasar";
+useMeta({
+  title: "Article Create",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Admin page for creating and updating articles"}
+  }
+});
 const store = useStore();
 const loading = computed(() => store.getters.loading);
 const route = useRoute();
@@ -202,7 +196,6 @@ const $q = useQuasar();
 const headerImage = ref(null);
 const contentImage = ref(null);
 const contentImageSecond = ref(null);
-const contentImageThird = ref(null);
 
 const article = ref({
   title: "",
@@ -212,7 +205,6 @@ const article = ref({
   content_third: "",
   caption: "",
   caption_second: "",
-  caption_third: "",
   url1: "",
   url2: "",
   url3: "",
@@ -233,7 +225,6 @@ function onSubmit() {
   );
   formData.append("caption", article.value.caption);
   formData.append("caption_second", article.value.caption_second);
-  formData.append("caption_third", article.value.caption_third);
   if (headerImage.value) {
     formData.append("header_image", headerImage.value);
   }
@@ -246,9 +237,6 @@ function onSubmit() {
     formData.append("content_image_second", contentImageSecond.value);
   }
   formData.append("content_third", article.value.content_third);
-  if (contentImageThird.value) {
-    formData.append("content_image_third", contentImageThird.value);
-  }
   formData.append("url1", article.value.url1);
   formData.append("url2", article.value.url2);
   formData.append("url3", article.value.url3);

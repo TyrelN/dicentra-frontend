@@ -59,8 +59,16 @@ import { useQuasar } from "quasar";
 import { ref, computed } from "vue";
 import { api } from "../boot/axios.js";
 import { useRouter } from "vue-router";
-import alert from "../components/alert.js";
+import alert from "../utils/alert.js";
 import { useStore } from "vuex";
+import { useMeta } from "quasar";
+useMeta({
+  title: "Send Reset Email",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Page for sending a reset password email to verify user"}
+  }
+});
 const store = useStore();
 const loading = computed(() => store.getters.loading);
 const $q = useQuasar();

@@ -4,12 +4,12 @@
     style="
       justify-content: center;
       align-items: center;
-      max-width: 900px;
+      max-width: 750px;
       margin: 0 auto;
     "
   >
     <div
-      class="q-ma-xl q-pa-xl"
+      class="q-ma-lg q-pa-xl"
       style="border-radius: 25px"
       :class="`shadow-14`"
     >
@@ -18,7 +18,7 @@
           <div class="text-h5">Pet Post Admin Page</div>
            <div class=" text-subtitle2 q-mt-lg">Only a name is required to save or publish a post, however a picture is always wanted!</div>
         </div>
-        <div class="col q-pa-xl" style="margin: auto; max-width: 400px">
+        <div class="col q-py-xl q-px-sm" style="margin: auto; max-width: 400px">
           <q-input
             class="q-mb-md"
             dense
@@ -152,8 +152,16 @@ import { api } from "../boot/axios.js";
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
-import alert from "../components/alert.js"
+import alert from "../utils/alert.js"
 import { useStore } from 'vuex';
+import { useMeta } from "quasar";
+useMeta({
+  title: "Pet Post Create Page",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Page for creating and updating pet posts"}
+  }
+});
 const route = useRoute();
 const store = useStore();
 const loading = computed(() => store.getters.loading);

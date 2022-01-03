@@ -47,12 +47,14 @@
             <q-btn
               label="Log in"
               type="submit"
+              padding="xs xl"
               color="positive"
               text-color="dark"
             />
             <q-btn
               label="Reset Password"
               class="q-mt-lg"
+              padding="xs xl"
               v-if="isAuthenticated"
               color="positive"
               text-color="dark"
@@ -74,7 +76,15 @@ import { ref, computed } from "vue";
 import { api } from "../boot/axios.js";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import alert from "../components/alert.js"
+import alert from "../utils/alert.js"
+import { useMeta } from "quasar";
+useMeta({
+  title: "Admin Login",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Log into the website as an administrator"}
+  }
+});
 const $q = useQuasar();
 const store = useStore();
 const router = useRouter();

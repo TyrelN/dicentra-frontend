@@ -1,6 +1,7 @@
 <template>
-  <div class="q-mt-xl">
+  <div class="q-mt-lg">
     <div style="text-align: center;">
+      <div class="text-h3 text-center q-ma-sm">Articles</div>
       <q-btn
         v-if="isAuthenticated"
         dense
@@ -196,7 +197,15 @@ import { api } from "../boot/axios";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import alert from "../components/alert";
+import alert from "../utils/alert";
+import { useMeta } from "quasar";
+useMeta({
+  title: "Articles",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Page listing articles about our animal rescue knowledge and activities"}
+  }
+});
 const published = ref(true);
 const loader = ref(false);
 const store = useStore();

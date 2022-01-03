@@ -100,6 +100,14 @@ import { api } from "../boot/axios";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { useMeta } from "quasar";
+useMeta({
+  title: "Applications",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"A list of applications submitted to the rescue"}
+  }
+});
 const store = useStore();
 const loader = ref(false);
 const isAuthenticated = computed(() => store.getters.isAuthenticated);

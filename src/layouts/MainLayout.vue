@@ -45,7 +45,7 @@
         >
           <router-link to="/about" class="text-accent">About Us</router-link>
           <router-link to="/articles" class="text-accent">Articles</router-link>
-          <router-link to="/donate" class="text-accent">Donate</router-link>
+          <router-link to="/petposts" class="text-accent">Our Animals</router-link>
           <q-btn @click="$router.push('/')" dense flat :ripple="true">
             <q-img
               src="../assets/nvars-logo-light.svg"
@@ -56,7 +56,7 @@
               loading="eager"
             ></q-img>
           </q-btn>
-          <router-link to="/petposts" class="text-accent">Animals</router-link>
+          <router-link to="/donate" class="text-accent">Donate</router-link>
           <router-link to="/forms" class="text-accent">Apply</router-link>
           <router-link to="/helpwanted" class="text-accent"
             >Help Wanted</router-link
@@ -106,7 +106,7 @@
         </q-item>
         <q-item clickable @click="$router.push('/petposts')">
           <q-item-section>
-            <q-item-label>Animals</q-item-label>
+            <q-item-label>Our Animals</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable @click="$router.push('/forms')">

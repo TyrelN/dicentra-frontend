@@ -1,6 +1,7 @@
 <template>
   <div class="q-pa-md">
     <div style="margin: auto; text-align: center">
+      <div class="text-h3 text-center q-ma-sm">Our Animals</div>
       <q-btn
         v-if="isAuthenticated"
         dense
@@ -49,20 +50,15 @@
         class="card-item"
       >
         <q-card class="q-mx-lg q-my-xl shadow-14">
-          <q-img :src="pet.get_thumbnail_image">
+          <q-img :src="pet.get_thumbnail_image" class="relative-position">
             <q-card-actions align="around" class="absolute-bottom">
-              <div dense flat class="text-h6 text-primary">{{ pet.name }}</div>
-              <q-btn
-                dense
-                outline
-                text-color="primary"
-                @click="displayDetails(pet)"
-                class="text-caption q-ml-sm"
-                >details</q-btn
-              >
+              <q-btn flat stretch class="absolute-top" style="width: 100%; height:100%" @click="displayDetails(pet)"/>
+              <div class="text-h6 text-primary">{{ pet.name }}</div>
+              <div v-if="pet.available=='adopted'" class="text-h5 text-accent q-mx-md">({{ pet.available }})</div>
             </q-card-actions>
+            
           </q-img>
-          <q-card-actions v-if="isAuthenticated">
+          <q-card-actions v-if="isAuthenticated" class="text-negative">
             <q-btn @click="$router.push('/petpostadmin/' + pet.slug)" flat
               >Update</q-btn
             >
@@ -124,7 +120,15 @@ import { useQuasar } from "quasar";
 import { api } from "../boot/axios.js";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import alert from "../components/alert";
+import alert from "../utils/alert";
+import { useMeta } from "quasar";
+useMeta({
+  title: "Our Animals",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta:{
+    description:{ name: "description", content:"Browse a gallery of the animals that are in our care or have been adopted"}
+  }
+});
 const $q = useQuasar();
 const loader = ref(false);
 const store = useStore();

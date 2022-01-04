@@ -37,7 +37,7 @@
     ></object>
     <div v-else style="margin:auto; max-width: 1130px;">
       <div v-if="latestArticle">
-        <q-card v-if="$q.screen.gt.sm" class="q-ma-xl" flat>
+        <q-card v-if="$q.screen.gt.sm" class="q-ma-xl shadow-14 bg-primary">
           <q-card-section horizontal>
             <q-card-section class="col-5">
               <div class="text-h6 text-positive text-center">
@@ -93,7 +93,7 @@
           </q-card-section>
         </q-card>
 
-        <q-card v-else class="q-ma-xl" flat>
+        <q-card v-else class="q-ma-xl shadow-14 bg-primary">
           <q-img :src="latestArticle.header_image" />
           <q-card-section horizontal style="opacity: 0.6">
             <div class="text-subtitle2 q-mx-md">
@@ -152,7 +152,7 @@
           transition="scale"
           class="card-item"
         >
-          <q-card class="q-mx-lg q-my-lg">
+          <q-card class="q-mx-lg q-my-lg shadow-14 bg-primary">
             <q-img :src="article.header_image" width="290px" height="290px"/>
             <q-card-section horizontal style="opacity: 0.6">
               <div class="text-subtitle2 q-mx-md">{{ article.created_on }}</div>

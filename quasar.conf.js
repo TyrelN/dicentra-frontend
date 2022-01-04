@@ -70,7 +70,7 @@ module.exports = configure(function (ctx) {
       //distDir: ctx.mode.spa ? 'vercel-public' : null,
       // transpile: false,
       env: {
-        API: ctx.dev ? "http://localhost:8000/" : "https://nvars-backend.herokuapp.com"
+        API: ctx.dev ? "http://localhost:8000/" : "https://woozy-reaction-production.up.railway.app"
       },
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).

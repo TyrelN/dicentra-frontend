@@ -1,5 +1,7 @@
 # Dicentra (frontend)
 
+<div align="center"><img src="https://github.com/TyrelN/dicentra-frontend/blob/main/src/assets/nvars-logo-light.svg" width="300"/></div>
+
 A progressive web application for adopting and supporting the animals of the Nicola Valley Animal Rescue
 
 ## Install the dependencies

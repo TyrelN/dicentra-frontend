@@ -5,7 +5,7 @@
 ## About
 Dicentra is a full-stack website designed for Nicola Valley Animal Rescue. The website acts as a platform for applications (to adopt, foster or volunteer), animal education, donations and more. This repo holds the frontend side of the project.
 
-Visit the website here [here](https://www.nvars.ca/).
+Visit the website [here](https://www.nvars.ca/).
 
 ## Design Strengths and Process
 Reducing redundancy and creating a simple architecture while utilizing some of the interesting UI components from Quasar proved quite challenging. Here are some of the design decision highlights:

@@ -1,28 +1,33 @@
-# Dicentra (frontend)
+# Dicentra (Frontend)
 
 <div align="center"><img src="https://github.com/TyrelN/dicentra-frontend/blob/main/src/assets/nvars-logo-light.svg" width="300"/></div>
 
-A progressive web application for adopting and supporting the animals of Nicola Valley Animal Rescue
+## About
+Dicentra is a full-stack website designed for Nicola Valley Animal Rescue. The website acts as a platform for applications (to adopt, foster or volunteer), animal education, donations and more. This repo holds the frontend side of the project.
 
-## Install the dependencies
-```bash
-yarn
-```
+Visit the website here [here](https://www.nvars.ca/).
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
+## Design Strengths and Process
+Reducing redundancy and creating a simple architecture while utilizing some of the interesting UI components from Quasar proved quite challenging. Here are some of the design decision highlights:
+* Application form questions were abstracted away to a seperate javascript file, both the questions on the form and the questions in the application detail page use this file to read the questions, and then match those questions with the request data for each application from the backend. While increasing the complexity of the implementation, this structure reduced the redundancy of changing questions for large forms to a single object, and reduced the areas that would need changing if the question amount or types had to change.
+* The specific forms for adoption, fostering and volunteering are added to a single file component 'forms' as imported components. When the form is submitted, the data from these imported forms is parsed into a json form that can easily be iterated on, then added on top of the contact details information to a form object that is submitted to the backend. This implementation allows for a more streamlined user experience with forms while also managing data consolidation between various components.
+* To improve the user experience with applying, field inputs are saved on the browser client and loaded each time to user revisits the page. Inputs are deleted upon successfully submitting the application.
+* Since affordable hosting platforms for backend servers have to wake up from sleep (Heroku) or have lower cpu and network resources, a cat stretching loading animation was created for frontend sections where requested data is awaited.
 
-### Lint the files
-```bash
-yarn run lint
-```
 
-### Build the app for production
-```bash
-quasar build
-```
+## Frontend Design Weaknesses
+There are some areas of the design that should be noted with scrutiny:
+* The backend error logging within forms is not robust. 400 status errors are generated as red text at the bottom of forms, but all other error messaging is covered as an alert.
+* Updates to features such as the loading animation and axios api call urls would require rewrites in numerous locations should a redesign for the animation or backend urls become necessary given the tight coupling with Vue single file components.
 
-### Customize the configuration
-See [Configuring quasar.conf.js](https://v2.quasar.dev/quasar-cli/quasar-conf-js).
+
+## Additional Notes:
+* The frontend project is deployed on [Vercel](https://vercel.com/).
+
+
+## References and Resources
+* https://www.youtube.com/watch?v=Yg5zkd9nm6w
+* https://quasar.dev/
+* https://v3.vuejs.org/
+* https://router.vuejs.org/
+

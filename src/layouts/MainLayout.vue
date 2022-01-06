@@ -30,13 +30,13 @@
         </div>
       </q-toolbar>
       <q-toolbar v-else>
-        <q-space/>
+        <q-space />
         <div
           class="
             GL__toolbar-link
-            q-ml-sm
-            q-gutter-md
-            text2 text-weight-bold
+            q-ml-lg q-gutter-md
+            text2
+            text-weight-bold
             row
             relative-position
             items-center
@@ -45,7 +45,9 @@
         >
           <router-link to="/about" class="text-accent">About Us</router-link>
           <router-link to="/articles" class="text-accent">Articles</router-link>
-          <router-link to="/petposts" class="text-accent">Our Animals</router-link>
+                    <router-link to="/petposts" class="text-accent"
+            >Adopt</router-link
+          >
           <q-btn @click="$router.push('/')" dense flat :ripple="true">
             <q-img
               src="../assets/nvars-logo-light.svg"
@@ -56,24 +58,23 @@
               loading="eager"
             ></q-img>
           </q-btn>
-          <router-link to="/donate" class="text-accent">Donate</router-link>
+           <router-link to="/donate" class="text-accent">Donate</router-link>
           <router-link to="/forms" class="text-accent">Apply</router-link>
           <router-link to="/helpwanted" class="text-accent"
             >Help Wanted</router-link
           >
-           </div>
-          <q-space/>
-          <q-btn
-            v-if="isAuthenticated"
-            dense
-            flat
-            size="18px"
-            color="negative"
-            @click="logout"
-            class="absolute-right q-mr-md"
-            >Log out</q-btn
-          >
-       
+        </div>
+        <q-space />
+        <q-btn
+          v-if="isAuthenticated"
+          dense
+          flat
+          size="18px"
+          color="negative"
+          @click="logout"
+          class="absolute-right q-mr-md"
+          >Log out</q-btn
+        >
       </q-toolbar>
     </q-header>
     <q-drawer

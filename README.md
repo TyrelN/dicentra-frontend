@@ -18,6 +18,7 @@ Reducing redundancy and creating a simple architecture while utilizing some of t
 
 ## Frontend Design Weaknesses
 There are some areas of the design that should be noted with scrutiny:
+* While the website itself loads quickly and performs well, the backend is deployed on Heroku using a free dyno, which falls asleep when there is no activity. When the dyno needs to wake up, it can lead to long loading times for sections requesting data. To alleviate this, a cat loading animation has been added for every page that could be subject to loading times.
 * The backend error logging within forms is not robust. 400 status errors are generated as red text at the bottom of forms, but all other error messaging is covered as an alert.
 * Updates to features such as the loading animation and axios api call urls would require rewrites in numerous locations should a redesign for the animation or backend urls become necessary given the tight coupling with Vue single file components.
 

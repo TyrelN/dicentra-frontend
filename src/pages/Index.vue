@@ -240,7 +240,7 @@ async function getCurrent() {
     .get("/api/v1/currentevent/")
     .then((response) => {
       loader.value = false;
-      current.value = response.data[0];
+      current.value = response.data[0]; //index 0 to ensure we retrieve the one and only data item
     })
     .catch((error) => {
       loader.value = false;

@@ -99,7 +99,6 @@
 import { api } from "../boot/axios";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
 import { useMeta } from "quasar";
 useMeta({
   title: "Applications",

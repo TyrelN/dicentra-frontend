@@ -290,7 +290,7 @@ function handleErrors(error) {
   }
 }
 function onRejected(rejectedEntries) {
-  alert("the image was rejected", "red-5", "white");
+  alert("the image was rejected", "red-5", "primary");
 }
 async function loadData() {
   if (route.params.slug) {

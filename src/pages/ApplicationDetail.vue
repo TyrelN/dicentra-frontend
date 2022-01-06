@@ -66,7 +66,6 @@
 </template>
 
 <script setup>
-import { useQuasar } from "quasar";
 import { api } from "../boot/axios.js";
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";

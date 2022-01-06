@@ -100,14 +100,14 @@
             <q-item-label>Articles</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item clickable @click="$router.push('/petposts')">
+          <q-item-section>
+            <q-item-label>Adopt</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item clickable @click="$router.push('/donate')">
           <q-item-section>
             <q-item-label>Donate</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable @click="$router.push('/petposts')">
-          <q-item-section>
-            <q-item-label>Our Animals</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable @click="$router.push('/forms')">

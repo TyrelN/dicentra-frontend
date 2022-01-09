@@ -82,10 +82,8 @@
           >Post a current event</q-btn
         >
       </div>
-      <div class="q-mx-md q-px-xl text-center">
-        <div class="text-h2 q-my-lg" style="opacity: 0.6">
-          Make a Difference
-        </div>
+      <div class="text-h2 q-my-lg" style="opacity: 0.6">Make a Difference</div>
+      <div class="q-mx-md q-px-lg text-center">
         <div
           class="row items-center"
           style="
@@ -222,35 +220,21 @@
 </style>
 
 <script setup>
-import { useQuasar } from "quasar";
-import { api } from "../boot/axios.js";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { apiCall } from "../utils/apiFunctions.js";
 const store = useStore();
-const router = useRouter();
-const $q = useQuasar();
 const current = ref({});
 const loader = ref(false);
 const isAuthenticated = computed(() => store.getters.isAuthenticated);
 async function getCurrent() {
   //loader acts as a loading animation until requested data arrives
   loader.value = true;
-  api
-    .get("/api/v1/currentevent/")
-    .then((response) => {
-      loader.value = false;
-      current.value = response.data[0]; //index 0 to ensure we retrieve the one and only data item
-    })
-    .catch((error) => {
-      loader.value = false;
-      $q.notify({
-        color: "red-5",
-        textColor: "white",
-        message: error.message,
-      });
-    });
+  const response = await apiCall("get", "/currentevent/");
+  loader.value = false;
+  if (response.status == 200) {
+    current.value = response.data[0]; //index 0 to ensure we retrieve the one and only data item
+  }
 }
 onMounted(getCurrent);
-
 </script>

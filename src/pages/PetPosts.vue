@@ -117,7 +117,7 @@
 
 <script setup>
 import { useQuasar } from "quasar";
-import { api } from "../boot/axios.js";
+import { apiCall } from "../utils/apiFunctions.js";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import alert from "../utils/alert";
@@ -159,18 +159,11 @@ async function toggleDrafts() {
 
 async function getPetPosts() {
   loader.value = true;
-  api
-    .get(
-      "/api/v1/petposts?is_published=" + (published.value ? "True" : "False")
-    )
-    .then((response) => {
-      pets.value = response.data;
-      loader.value = false;
-    })
-    .catch((error) => {
-      alert(error.message, "red-5", "primary");
-      loader.value = false;
-    });
+  const response = await apiCall("get", "/petposts?is_published=" + (published.value ? "True" : "False"));
+  loader.value = false;
+  if(response.status == 200){
+  pets.value = response.data;
+  }
 }
 function deletePetPost(slug) {
   $q.dialog({
@@ -179,15 +172,11 @@ function deletePetPost(slug) {
     class: "bg-dark text-primary",
     cancel: true,
   })
-    .onOk(() => {
-      api
-        .delete("/api/v1/petposts/" + slug)
-        .then((response) => {
-          getPetPosts();
-        })
-        .catch((error) => {
-          alert(error.message, "red-5", "primary");
-        });
+    .onOk(async () => {
+      const response = await apiCall("delete", "/petposts/" + slug);
+      if(response.status == 204){
+        getPetPosts();
+      }
     })
     .onCancel(() => {});
 }

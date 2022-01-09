@@ -17,4 +17,6 @@ import iconSet from 'quasar/icon-set/fontawesome-v5'
 import {Notify,Dialog,Meta} from 'quasar'
 
 
+
 export default { config: {},iconSet,plugins: {Notify,Dialog,Meta} }
+

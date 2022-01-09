@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { api } from "../boot/axios.js";
+import { apiCall } from "../utils/apiFunctions.js";
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
@@ -106,29 +106,35 @@ async function approveApplication() {
   store.commit("setLoading", true);
   const formData = new FormData();
   formData.append("status", status.value);
-  api
-    .patch(
-      "/api/v1/" + route.params.formtype + "/" + route.params.slug + "/",
-      formData
-    )
-    .then((response) => {
-      store.commit("setLoading", false);
+   const response = await apiCall("patch", "/" + route.params.formtype + "/" + route.params.slug + "/", formData);
+    store.commit("setLoading", false);
+      if(response.status == 200){
       alert("Application status updated", "dark", "primary");
       router.push("/applicationlist");
-    })
-    .catch((error) => {
-      store.commit("setLoading", false);
-      alert(error.message, "red-5", "primary");
-    });
+      }
 }
+  // api
+  //   .patch(
+  //     "/api/v1/" + route.params.formtype + "/" + route.params.slug + "/",
+  //     formData
+  //   )
+  //   .then((response) => {
+  //     store.commit("setLoading", false);
+  //     alert("Application status updated", "dark", "primary");
+  //     router.push("/applicationlist");
+  //   })
+  //   .catch((error) => {
+  //     store.commit("setLoading", false);
+  //     alert(error.message, "red-5", "primary");
+  //   });
+//}
 
 async function loadData() {
   loader.value = true;
-  api
-    .get("/api/v1/" + route.params.formtype + "/" + route.params.slug)
-    .then((response) => {
-      loader.value = false;
-      applicationData.value = response.data;
+  const response = await apiCall("get", "/"+route.params.formtype + "/" + route.params.slug);
+  loader.value = false;
+  if (response.status == 200) {
+    applicationData.value = response.data;
       switch (route.params.formtype) {
         case "adoptforms":
           questionsToMap = adoptQuestions;
@@ -144,11 +150,32 @@ async function loadData() {
         tempMap.set(`${questionsToMap[key]}`, applicationData.value[key]);
         answers.value = Object.fromEntries(tempMap);
       }
-    })
-    .catch((error) => {
-      loader.value = false;
-      alert(error.message, "red-5", "primary");
-    });
+  }
+  // api
+  //   .get("/api/v1/" + route.params.formtype + "/" + route.params.slug)
+  //   .then((response) => {
+  //     loader.value = false;
+  //     applicationData.value = response.data;
+  //     switch (route.params.formtype) {
+  //       case "adoptforms":
+  //         questionsToMap = adoptQuestions;
+  //         break;
+  //       case "fosterforms":
+  //         questionsToMap = fosterQuestions;
+  //         break;
+  //       case "volunteerforms":
+  //         questionsToMap = volunteerQuestions;
+  //         break;
+  //     }
+  //     for (const key in questionsToMap) {
+  //       tempMap.set(`${questionsToMap[key]}`, applicationData.value[key]);
+  //       answers.value = Object.fromEntries(tempMap);
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     loader.value = false;
+  //     alert(error.message, "red-5", "primary");
+  //   });
 }
 
 onMounted(loadData);

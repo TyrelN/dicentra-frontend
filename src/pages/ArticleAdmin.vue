@@ -170,8 +170,7 @@
 </template>
 
 <script setup>
-import { useQuasar } from "quasar";
-import { api } from "../boot/axios";
+import { apiCall } from "../utils/apiFunctions.js"
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
@@ -192,7 +191,6 @@ const props = defineProps({
   slug: String,
 });
 const router = useRouter();
-const $q = useQuasar();
 const headerImage = ref(null);
 const contentImage = ref(null);
 const contentImageSecond = ref(null);
@@ -214,7 +212,7 @@ const article = ref({
 const categories = ["news", "event", "seasonal", "information"];
 const backenderrors = ref([]);
 
-function onSubmit() {
+async function onSubmit() {
   backenderrors.value = [];
   store.commit("setLoading", true);
   const formData = new FormData();
@@ -242,68 +240,57 @@ function onSubmit() {
   formData.append("url3", article.value.url3);
   formData.append("url4", article.value.url4);
   formData.append("is_published", article.value.is_published);
-  if (route.params.slug) {
-    api
-      .put("/api/v1/articles/" + route.params.slug + "/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        store.commit("setLoading", false);
-        alert("article updated", "dark", "primary");
 
-        router.push("/articles");
-      })
-      .catch((error) => {
-        store.commit("setLoading", false);
-        handleErrors(error);
-      });
-  } else {
-    api
-      .post("/api/v1/articles/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        store.commit("setLoading", false);
-        alert("article created", "dark", "primary");
-        router.push("/articles");
-      })
-      .catch((error) => {
-        store.commit("setLoading", false);
-        handleErrors(error);
-      });
+  const response = route.params.slug
+    ? await apiCall(
+        "put",
+        "/articles/" + route.params.slug + "/",
+        formData,
+        true
+      )
+    : await apiCall("post", "/articles/", formData, true);
+  store.commit("setLoading", false);
+  const success =
+    response.status == 200
+      ? "article updated"
+      : response.status == 201
+      ? "article created"
+      : "";
+  if (success) {
+    alert(success, "positive", "dark");
+    router.push("/articles");
+  } else if (response.status == 400) {
+    handleErrors(response);
   }
 }
 
 function handleErrors(error) {
-  if (error.response) {
-    if (error.response.status == 400) {
-      for (const element in error.response.data) {
-        backenderrors.value.push(`${element}: ${error.response.data[element]}`);
-      }
-    }
-  } else if (error.message) {
-    backenderrors.value.push(`${error.message}`);
+  for (const element in error.data) {
+    backenderrors.value.push(`${element}: ${error.data[element]}`);
   }
 }
+
 function onRejected(rejectedEntries) {
   alert("the image was rejected", "red-5", "primary");
 }
 async function loadData() {
   if (route.params.slug) {
-    api
-      .get("/api/v1/articles/" + route.params.slug)
-      .then((response) => {
-        for (const [key, value] of Object.entries(article.value)) {
-          article.value[key] = response.data[key];
-        }
-      })
-      .catch((error) => {
-        alert(error.message, "red-5", "white");
-      });
+    const response = await apiCall("get", "/articles/" + route.params.slug);
+    if (response.status == 200) {
+      for (const [key, value] of Object.entries(article.value)) {
+        article.value[key] = response.data[key];
+      }
+    }
+    // api
+    //   .get("/api/v1/articles/" + route.params.slug)
+    //   .then((response) => {
+    //     for (const [key, value] of Object.entries(article.value)) {
+    //       article.value[key] = response.data[key];
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     alert(error.message, "red-5", "white");
+    //   });
   }
 }
 

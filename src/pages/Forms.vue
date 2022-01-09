@@ -251,16 +251,19 @@ import { ref, shallowRef, computed, onMounted } from "vue";
 import AdoptForm from "../components/AdoptForm.vue";
 import FosterForm from "../components/FosterForm.vue";
 import VolunteerForm from "../components/VolunteerForm.vue";
-import { api } from "../boot/axios";
+import { apiCall } from "../utils/apiFunctions.js";
 import alert from "../utils/alert.js";
 
 import { useMeta } from "quasar";
 useMeta({
   title: "Apply",
   titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
-  meta:{
-    description:{ name: "description", content:"Apply to volunteer, adopt or foster with our rescue"}
-  }
+  meta: {
+    description: {
+      name: "description",
+      content: "Apply to volunteer, adopt or foster with our rescue",
+    },
+  },
 });
 
 const route = useRoute();
@@ -295,32 +298,12 @@ const contact = ref({
 });
 let activeQuestions = "";
 
-function onSubmit() {
+async function onSubmit() {
   if (accept.value !== true) {
-    $q.notify({
-      color: "red-5",
-      textColor: "primary",
-      icon: "warning",
-      message: "You need to accept the license and terms first",
-    });
+    alert("You need to accept the license and terms first", "red-5", "primary");
   } else {
     backenderrors.value = [];
-    const formObject = JSON.parse(JSON.stringify(activeForm.value)); //retrieves the data from the active question component (deep copy)
-    const questions = formObject.questions;
-    //convert every array value into a string, there is not need for an array datatype in the database
-
-    for (const question in questions) {
-      if (Array.isArray(questions[question])) {
-        questions[question] = questions[question].toString();
-      }
-    }
-    //use the spread operator to add all form entries to formData
-    const formData = {
-      ...contact.value,
-      //we need to ensure call times is a string and not an array to match the database field
-      calltimes: contact.value.calltimes.toString().replace(/,/g, ", "), //adds spaces to the created string from the array for readability
-      ...questions, //spread operator to append every question here
-    };
+    const formData = processForm();
     //now we need to post the form data to the proper url:
     switch (formType.value) {
       case AdoptForm:
@@ -332,6 +315,7 @@ function onSubmit() {
         formURL = "fosterforms/";
         activeQuestions = "fquestions";
         break;
+
       case VolunteerForm:
         formURL = "volunteerforms/";
         activeQuestions = "vquestions";
@@ -342,34 +326,57 @@ function onSubmit() {
     }
     store.commit("setLoading", true);
     //submit the form using the given forms questions
-    api
-      .post("/api/v1/" + formURL, formData)
-      .then((response) => {
-        store.commit("setLoading", false);
-        //wipe the local storage answers
-        localStorage.removeItem("contact");
-        localStorage.removeItem(activeQuestions);
-        alert("application submitted", "dark", "primary");
-        router.push("/success");
-      })
-      .catch((error) => {
-        store.commit("setLoading", true);
-        handleErrors(error);
-      });
+    //makeRequest(method, url, data, config,)
+    const response = await apiCall("post", formURL, formData);
+    store.commit("setLoading", false);
+    if (response.status == 201) {
+      alert("application created", "primary", "dark");
+      //wipe the local storage answers
+      localStorage.removeItem("contact");
+      localStorage.removeItem(activeQuestions);
+      router.push("/success");
+    } else if (response.status == 400) {
+      handleErrors(response);
+    }
+    //   api
+    //     .post("/api/v1/" + formURL, formData)
+    //     .then((response) => {
+    //       store.commit("setLoading", false);
+    //       //wipe the local storage answers
+    //       localStorage.removeItem("contact");
+    //       localStorage.removeItem(activeQuestions);
+    //       alert("application submitted", "dark", "primary");
+    //       router.push("/success");
+    //     })
+    //     .catch((error) => {
+    //       store.commit("setLoading", false);
+    //       handleErrors(error);
+    //     });
   }
 }
 function handleErrors(error) {
-  if (error.response) {
-    if (error.response.status == 400) {
-      for (const element in error.response.data) {
-        backenderrors.value.push(`${element}: ${error.response.data[element]}`);
-      }
-    }
-  } else if (error.message) {
-    alert(error.message, "red-5", "primary");
+  for (const element in error.data) {
+    backenderrors.value.push(`${element}: ${error.data[element]}`);
   }
 }
-
+function processForm() {
+  const formObject = JSON.parse(JSON.stringify(activeForm.value)); //retrieves the data from the active question component (deep copy)
+  const questions = formObject.questions;
+  //convert every array value into a string, there is no need for an array datatype in the database
+  for (const question in questions) {
+    if (Array.isArray(questions[question])) {
+      questions[question] = questions[question].toString();
+    }
+  }
+  //use the spread operator to add all form entries to formData
+  const combinedForm = {
+    ...contact.value,
+    //we need to ensure call times is a string and not an array to match the database field
+    calltimes: contact.value.calltimes.toString().replace(/,/g, ", "), //adds spaces to the created string from the array for readability
+    ...questions, //spread operator to append every question here
+  };
+  return combinedForm;
+}
 function load() {
   if (route.params.position) {
     formType.value = VolunteerForm;

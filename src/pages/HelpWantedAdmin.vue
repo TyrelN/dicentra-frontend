@@ -62,19 +62,22 @@
 
 <script setup>
 import { useQuasar } from "quasar";
-import { api } from "../boot/axios";
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
+import { apiCall } from "../utils/apiFunctions.js";
 import alert from "../utils/alert";
 import { useStore } from "vuex";
 import { useMeta } from "quasar";
 useMeta({
   title: "Help Wanted Create",
   titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
-  meta:{
-    description:{ name: "description", content:"Page for creating and updating Help Wanted Posts"}
-  }
+  meta: {
+    description: {
+      name: "description",
+      content: "Page for creating and updating Help Wanted Posts",
+    },
+  },
 });
 const store = useStore();
 const loading = computed(() => store.getters.loading);
@@ -91,61 +94,43 @@ const adData = ref({
 });
 const backenderrors = ref([]);
 
-function onSubmit() {
+async function onSubmit() {
   store.commit("setLoading", true);
   backenderrors.value = [];
   const formData = new FormData();
   formData.append("title", adData.value.title);
   formData.append("description", adData.value.description);
-  if (route.params.slug) {
-    api
-      .put("/api/v1/wantedads/" + route.params.slug + "/", formData)
-      .then((response) => {
-        store.commit("setLoading", false);
-        alert("wanted ad updated", "primary", "dark");
-        router.push("/helpwanted");
-      })
-      .catch((error) => {
-        store.commit("setLoading", false);
-        handleErrors(error);
-      });
-  } else {
-    api
-      .post("/api/v1/wantedads/", formData)
-      .then((response) => {
-        store.commit("setLoading", false);
-        alert("ad submitted", "primary", "dark");
-        router.push("/helpwanted");
-      })
-      .catch((error) => {
-        store.commit("setLoading", false);
-        handleErrors(error);
-      });
+  //if (route.params.slug) {
+  const response = route.params.slug
+    ? await apiCall("put", "/wantedads/" + route.params.slug + "/", formData)
+    : await apiCall("post", "/wantedads/", formData);
+  store.commit("setLoading", false);
+  const success =
+    response.status == 200
+      ? "wanted ad updated"
+      : response.status == 201
+      ? "wanted ad created"
+      : "";
+  if (success) {
+    alert(success, "positive", "dark");
+    router.push("/helpwanted");
+  } else if (response.status == 400) {
+    handleErrors(response);
   }
 }
 
 function handleErrors(error) {
-  if (error.response) {
-    if (error.response.status == 400) {
-      for (const element in error.response.data) {
-        backenderrors.value.push(`${element}: ${error.response.data[element]}`);
-      }
-    }
-  } else if (error.message) {
-    backenderrors.value.push(`${error.message}`);
+  for (const element in error.data) {
+    backenderrors.value.push(`${element}: ${error.data[element]}`);
   }
 }
 
 async function loadData() {
   if (route.params.slug) {
-    api
-      .get("/api/v1/wantedads/" + route.params.slug)
-      .then((response) => {
-        adData.value = response.data;
-      })
-      .catch((error) => {
-        alert(error.message, "red-5", "white");
-      });
+    const response = await apiCall("get", "/wantedads/" + route.params.slug);
+    if (response.status == 200) {
+      adData.value = response.data;
+    }
   }
 }
 

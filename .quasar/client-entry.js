@@ -59,13 +59,29 @@ async function start ({ app, router, store, storeKey }, bootFiles) {
 
   
   let hasRedirected = false
+  const getRedirectUrl = url => {
+    try { return router.resolve(url).href }
+    catch (err) {}
+
+    return Object(url) === url
+      ? null
+      : url
+  }
   const redirect = url => {
     hasRedirected = true
-    const normalized = Object(url) === url
-      ? router.resolve(url).fullPath
-      : url
 
-    window.location.href = normalized
+    if (typeof url === 'string' && /^https?:\/\//.test(url)) {
+      window.location.href = url
+      return
+    }
+
+    const href = getRedirectUrl(url)
+
+    // continue if we didn't fail to resolve the url
+    if (href !== null) {
+      window.location.href = href
+      
+    }
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
@@ -84,7 +100,7 @@ async function start ({ app, router, store, storeKey }, bootFiles) {
     }
     catch (err) {
       if (err && err.url) {
-        window.location.href = err.url
+        redirect(err.url)
         return
       }
 

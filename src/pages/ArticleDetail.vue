@@ -1,8 +1,13 @@
 <template>
   <div
-    style="justify-content: center; margin: auto; align-items: center; max-width: 900px"
+    style="
+      justify-content: center;
+      margin: auto;
+      align-items: center;
+      max-width: 900px;
+    "
   >
-   <object
+    <object
       v-if="loader"
       width="250px"
       height="230px"
@@ -85,16 +90,19 @@
 </template>
 
 <script setup>
-import { api } from "../boot/axios";
+import { apiCall } from "../utils/apiFunctions.js";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useMeta } from "quasar";
 useMeta({
   title: "Article Detail",
   titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
-  meta:{
-    description:{ name: "description", content:"Page for viewing a specific article"}
-  }
+  meta: {
+    description: {
+      name: "description",
+      content: "Page for viewing a specific article",
+    },
+  },
 });
 const route = useRoute();
 const loader = ref(false);
@@ -105,16 +113,21 @@ const article = ref({});
 
 async function getArticle() {
   loader.value = true;
-  api
-    .get("/api/v1/articles/" + route.params.slug)
-    .then((response) => {
-      article.value = response.data;
-      loader.value = false;
-    })
-    .catch((error) => {
-      alert(error.message, "red-5", "primary");
-      loader.value = false;
-    });
+  const response = await apiCall("get", "/articles/" + route.params.slug);
+  loader.value = false;
+  if (response.status == 200) {
+    article.value = response.data;
+  }
+  // api
+  //   .get("/api/v1/articles/" + route.params.slug)
+  //   .then((response) => {
+  //     article.value = response.data;
+  //     loader.value = false;
+  //   })
+  //   .catch((error) => {
+  //     alert(error.message, "red-5", "primary");
+  //     loader.value = false;
+  //   });
 }
 
 onMounted(getArticle);

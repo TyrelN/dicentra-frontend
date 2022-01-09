@@ -65,7 +65,7 @@
 <script setup>
 import { useQuasar } from "quasar";
 import { ref, computed } from "vue";
-import { api } from "../boot/axios.js";
+import { apiCall } from "../utils/apiFunctions.js";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
@@ -74,9 +74,12 @@ import { useMeta } from "quasar";
 useMeta({
   title: "Password Reset",
   titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
-  meta:{
-    description:{ name: "description", content:"Reset page for admin passwords"}
-  }
+  meta: {
+    description: {
+      name: "description",
+      content: "Reset page for admin passwords",
+    },
+  },
 });
 const $q = useQuasar();
 const store = useStore();
@@ -91,41 +94,71 @@ const props = defineProps({
   uid: String,
   token: String,
 });
-function onSubmit() {
+async function onSubmit() {
   //resets password using djoser url, then logs out user
   store.commit("setLoading", true);
   backenderrors.value = [];
-  api
-    .post("/api/v1/users/reset_password_confirm/", {
-      uid: route.params.uid,
-      token: route.params.token,
-      new_password: newPassword.value,
-      re_new_password: reNewPassword.value,
-    })
-    .then((response) => {
-      store.commit("setLoading", false);
-      //logout user on client side
-      api.defaults.headers.common["Authorization"] = "";
-      localStorage.removeItem("token");
-      store.commit("removeToken");
-
-      alert("password has been reset!", "positive", "dark");
-
-      router.push("/");
-    })
-    .catch((error) => {
-      store.commit("setLoading", false);
-      if (error.response) {
-        if (error.response.status == 400) {
-          for (const element in error.response.data) {
-            backenderrors.value.push(
-              `${element}: ${error.response.data[element]}`
-            );
-          }
-        }
-      } else if (error.message) {
-        alert(error.message, "red-5", "primary");
-      }
-    });
+  const formData = {
+    uid: route.params.uid,
+    token: route.params.token,
+    new_password: newPassword.value,
+    re_new_password: reNewPassword.value,
+  };
+  const response = await apiCall(
+    "post",
+    "/users/reset_password_confirm/",
+    formData
+  );
+  store.commit("setLoading", false);
+  if (response.status == 200) {
+    //logout user on client side
+    api.defaults.headers.common["Authorization"] = "";
+    localStorage.removeItem("token");
+    store.commit("removeToken");
+    alert("Your password has been reset!", "primary", "dark");
+    router.push("/");
+  } else if (response.status == 400) {
+    handleErrors(response);
+  }
 }
+
+function handleErrors(error) {
+  for (const element in error.data) {
+    backenderrors.value.push(`${element}: ${error.data[element]}`);
+  }
+}
+
+// api
+//   .post("/api/v1/users/reset_password_confirm/", {
+//     uid: route.params.uid,
+//     token: route.params.token,
+//     new_password: newPassword.value,
+//     re_new_password: reNewPassword.value,
+//   })
+//   .then((response) => {
+//     store.commit("setLoading", false);
+//     //logout user on client side
+//     api.defaults.headers.common["Authorization"] = "";
+//     localStorage.removeItem("token");
+//     store.commit("removeToken");
+
+//     alert("password has been reset!", "positive", "dark");
+
+//     router.push("/");
+//   })
+//   .catch((error) => {
+//     store.commit("setLoading", false);
+//     if (error.response) {
+//       if (error.response.status == 400) {
+//         for (const element in error.response.data) {
+//           backenderrors.value.push(
+//             `${element}: ${error.response.data[element]}`
+//           );
+//         }
+//       }
+//     } else if (error.message) {
+//       alert(error.message, "red-5", "primary");
+//     }
+//   });
+//}
 </script>

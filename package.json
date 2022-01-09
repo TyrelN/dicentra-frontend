@@ -7,26 +7,36 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
-    "test": "echo \"No test specified\" && exit 0",
+    "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
     "deploy": "vercel",
-    "build:pwa": "quasar build -m pwa"
+    "build:pwa": "quasar build -m pwa",
+    "test:unit": "jest --updateSnapshot",
+    "test:unit:ci": "jest --ci",
+    "test:unit:coverage": "jest --coverage",
+    "test:unit:watch": "jest --watch",
+    "test:unit:watchAll": "jest --watchAll",
+    "serve:test:coverage": "quasar serve test/jest/coverage/lcov-report/ --port 8788",
+    "concurrently:dev:jest": "concurrently \"quasar dev\" \"jest --watch\""
   },
   "dependencies": {
     "@quasar/cli": "^1.2.2",
-    "@quasar/extras": "^1.11.0",
+    "@quasar/extras": "^1.12.2",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "quasar": "^2.1.0",
+    "quasar": "^2.4.4",
     "vuex": "^4.0.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
-    "@quasar/app": "^3.0.0",
+    "@quasar/app": "^3.2.6",
+    "@quasar/quasar-app-extension-testing": "^2.0.1",
+    "@quasar/quasar-app-extension-testing-unit-jest": "^3.0.0-alpha.7",
     "dotenv": "^10.0.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-jest": "^25.2.2",
     "eslint-plugin-vue": "^7.0.0",
     "eslint-webpack-plugin": "^2.4.0",
     "sitemap-webpack-plugin": "^1.1.1"

@@ -71,21 +71,23 @@
 </template>
 
 <script setup>
-import { useQuasar } from "quasar";
 import { ref, computed } from "vue";
 import { api } from "../boot/axios.js";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import alert from "../utils/alert.js"
+import alert from "../utils/alert.js";
+import { apiCall } from "../utils/apiFunctions.js";
 import { useMeta } from "quasar";
 useMeta({
   title: "Admin Login",
   titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
-  meta:{
-    description:{ name: "description", content:"Log into the website as an administrator"}
-  }
+  meta: {
+    description: {
+      name: "description",
+      content: "Log into the website as an administrator",
+    },
+  },
 });
-const $q = useQuasar();
 const store = useStore();
 const router = useRouter();
 const loading = computed(() => store.getters.loading);
@@ -94,7 +96,7 @@ const user = ref("");
 const password = ref("");
 const backenderrors = ref([]);
 
-function onSubmit() {
+async function onSubmit() {
   store.commit("setLoading", true);
   backenderrors.value = [];
   //wipe original information clean
@@ -105,36 +107,28 @@ function onSubmit() {
   const formData = new FormData();
   formData.append("username", user.value);
   formData.append("password", password.value);
-  api
-    .post("/api/v1/token/login/", formData) //djoser url
-    .then((response) => {
-      //store logged in token on browser
-      store.commit("setLoading", false);
-      const token = response.data.auth_token;
+  const response = await apiCall("post", "/token/login/", formData);
+  store.commit("setLoading", false);
+  if (response.status == 200) {
+    //store logged in token on browser
+    const token = response.data.auth_token;
 
-      store.commit("setToken", token);
+    store.commit("setToken", token);
 
-      api.defaults.headers.common["Authorization"] = "Token " + token;
+    api.defaults.headers.common["Authorization"] = "Token " + token;
 
-      localStorage.setItem("token", token);
+    localStorage.setItem("token", token);
 
-      alert("you have logged in!", "positive", "dark")
-
-      router.push("/");
-    })
-    .catch((error) => {
-      store.commit("setLoading", false);
-      if (error.response) {
-        if (error.response.status == 400) {
-          for (const element in error.response.data) {
-            backenderrors.value.push(
-              `${element}: ${error.response.data[element]}`
-            );
-          }
-        }
-      } else if (error.message) {
-        alert(error.message, "red-5", "primary")
-      }
-    });
+    alert("you have logged in!", "positive", "dark");
+    router.push("/");
+  } else if (response.status == 400) {
+    handleErrors(response);
+  }
 }
+  function handleErrors(error) {
+    for (const element in error.data) {
+      backenderrors.value.push(`${element}: ${error.data[element]}`);
+    }
+  }
+
 </script>

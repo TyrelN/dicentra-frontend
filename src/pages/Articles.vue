@@ -1,6 +1,6 @@
 <template>
   <div class="q-mt-lg">
-    <div style="text-align: center;">
+    <div style="text-align: center">
       <div class="text-h3 text-center q-ma-sm">Articles</div>
       <q-btn
         v-if="isAuthenticated"
@@ -35,7 +35,7 @@
       data="loadingcatcss.svg"
       class="absolute-center"
     ></object>
-    <div v-else style="margin:auto; max-width: 1130px;">
+    <div v-else style="margin: auto; max-width: 1130px">
       <div v-if="latestArticle">
         <q-card v-if="$q.screen.gt.sm" class="q-ma-xl shadow-14 bg-primary">
           <q-card-section horizontal>
@@ -153,7 +153,7 @@
           class="card-item"
         >
           <q-card class="q-mx-lg q-my-lg shadow-14 bg-primary">
-            <q-img :src="article.header_image" width="290px" height="290px"/>
+            <q-img :src="article.header_image" width="290px" height="290px" />
             <q-card-section horizontal style="opacity: 0.6">
               <div class="text-subtitle2 q-mx-md">{{ article.created_on }}</div>
               <q-space></q-space>
@@ -193,18 +193,20 @@
 
 <script setup>
 import { useQuasar } from "quasar";
-import { api } from "../boot/axios";
+import { apiCall } from "../utils/apiFunctions.js";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import alert from "../utils/alert";
 import { useMeta } from "quasar";
 useMeta({
   title: "Articles",
   titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
-  meta:{
-    description:{ name: "description", content:"Page listing articles about our animal rescue knowledge and activities"}
-  }
+  meta: {
+    description: {
+      name: "description",
+      content:
+        "Page listing articles about our animal rescue knowledge and activities",
+    },
+  },
 });
 const published = ref(true);
 const loader = ref(false);
@@ -216,45 +218,49 @@ const articles = ref([]);
 
 async function getArticles() {
   loader.value = true;
-  api
-    .get(
-      "/api/v1/articles?is_published=" + (published.value ? "True" : "False")
-    )
-    .then((response) => {
-      latestArticle.value = response.data.shift();
-      articles.value = response.data;
-      loader.value = false;
-    })
-    .catch((error) => {
-      alert(error.message, "red-5", "primary");
-      loader.value = false;
-    });
+  const response = await apiCall(
+    "get",
+    "/articles?is_published=" + (published.value ? "True" : "False")
+  );
+  loader.value = false;
+  if (response.status == 200) {
+    latestArticle.value = response.data.shift();
+    articles.value = response.data;
+  }
+  // api
+  //   .get(
+  //     "/api/v1/articles?is_published=" + (published.value ? "True" : "False")
+  //   )
+  //   .then((response) => {
+  //     latestArticle.value = response.data.shift();
+  //     articles.value = response.data;
+  //     loader.value = false;
+  //   })
+  //   .catch((error) => {
+  //     alert(error.message, "red-5", "primary");
+  //     loader.value = false;
+  //   });
 }
 
 async function toggleDrafts() {
   published.value = !published.value;
   getArticles();
 }
-function deleteArticle(slug) {
+function deletePetPost(slug) {
   $q.dialog({
     title: "Delete",
-    message: `Are you sure you want to delete this article?`,
+    message: `Are you sure you want to delete this post?`,
     class: "bg-dark text-primary",
     cancel: true,
   })
-    .onOk(() => {
-      api
-        .delete("/api/v1/articles/" + slug)
-        .then((response) => {
-          getArticles();
-        })
-        .catch((error) => {
-          alert(error.message, "red-5", "primary");
-        });
+    .onOk(async () => {
+      const response = await apiCall("delete", "/articles/" + slug);
+      if (response.status == 204) {
+        getArticles();
+      }
     })
     .onCancel(() => {});
 }
 
 onMounted(getArticles);
 </script>
-

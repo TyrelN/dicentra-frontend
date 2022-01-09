@@ -16,7 +16,10 @@
       <q-form @submit="onSubmit">
         <div style="margin: auto; text-align: center">
           <div class="text-h5">Pet Post Admin Page</div>
-           <div class=" text-subtitle2 q-mt-lg">Only a name is required to save or publish a post, however a picture is always wanted!</div>
+          <div class="text-subtitle2 q-mt-lg">
+            Only a name is required to save or publish a post, however a picture
+            is always wanted!
+          </div>
         </div>
         <div class="col q-py-xl q-px-sm" style="margin: auto; max-width: 400px">
           <q-input
@@ -67,7 +70,6 @@
             type="textarea"
             v-model="petData.description"
             hint="pet description/story"
-           
           />
           <q-select
             class="q-mb-md"
@@ -148,19 +150,22 @@
 
 <script setup>
 import { useQuasar } from "quasar";
-import { api } from "../boot/axios.js";
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
-import alert from "../utils/alert.js"
-import { useStore } from 'vuex';
+import { apiCall } from "../utils/apiFunctions.js";
+import alert from "../utils/alert.js";
+import { useStore } from "vuex";
 import { useMeta } from "quasar";
 useMeta({
   title: "Pet Post Create Page",
   titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
-  meta:{
-    description:{ name: "description", content:"Page for creating and updating pet posts"}
-  }
+  meta: {
+    description: {
+      name: "description",
+      content: "Page for creating and updating pet posts",
+    },
+  },
 });
 const route = useRoute();
 const store = useStore();
@@ -185,7 +190,7 @@ const availableOptions = ["available", "not available", "adopted"];
 const sexTypes = ["male", "female"];
 const backenderrors = ref([]);
 
-function onSubmit() {
+async function onSubmit() {
   store.commit("setLoading", true);
   backenderrors.value = [];
   const formData = new FormData();
@@ -197,84 +202,55 @@ function onSubmit() {
   formData.append("color", petData.value.color);
   formData.append("description", petData.value.description);
   formData.append("sex", petData.value.sex);
-  formData.append("available", petData.value.available ? petData.value.available : "");
+  formData.append(
+    "available",
+    petData.value.available ? petData.value.available : ""
+  );
   formData.append("spayed", petData.value.spayed);
   formData.append("is_published", petData.value.is_published);
-  if (route.params.slug) {
-    api
-      .patch("/api/v1/petposts/" + route.params.slug + "/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        store.commit("setLoading", false);
-        alert("pet post updated", "dark", "primary")
-        router.push("/petposts");
-      })
-      .catch((error) => {
-        store.commit("setLoading", false);
-        handleErrors(error);
-      });
-  } else {
-    api
-      .post("/api/v1/petposts/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        store.commit("setLoading", false);
-        alert("pet post created", "dark", "primary")
-
-        router.push("/petposts");
-      })
-      .catch((error) => {
-        store.commit("setLoading", false);
-        handleErrors(error);
-  });
+  const response = route.params.slug
+    ? await apiCall(
+        "put",
+        "/petposts/" + route.params.slug + "/",
+        formData,
+        true
+      )
+    : await apiCall("post", "/petposts/", formData, true);
+  store.commit("setLoading", false);
+  const success =
+    response.status == 200
+      ? "pet post updated"
+      : response.status == 201
+      ? "pet post created"
+      : "";
+  if (success) {
+    alert(success, "positive", "dark");
+    router.push("/petposts");
+  } else if (response.status == 400) {
+    handleErrors(response);
   }
 }
-
 function handleErrors(error) {
-  if (error.response) {
-    if (error.response.status == 400) {
-      for (const element in error.response.data) {
-        backenderrors.value.push(`${element}: ${error.response.data[element]}`);
-      }
-    }
-  } else if (error.message) {
-    backenderrors.value.push(`${error.message}`);
+  for (const element in error.data) {
+    backenderrors.value.push(`${element}: ${error.data[element]}`);
   }
 }
 function onRejected(rejectedEntries) {
-  alert("this image was rejected. Perhaps it was too large?", "red-5", "primary")
+  alert(
+    "this image was rejected. Perhaps it was too large?",
+    "red-5",
+    "primary"
+  );
 }
 
 async function loadData() {
   if (route.params.slug) {
-    api
-      .get("/api/v1/petposts/" + route.params.slug)
-      .then((response) => {
-         for(const [key, value] of Object.entries(petData.value)){
-          petData.value[key] = response.data[key]
-        }
-        // petData.value.name = response.data.name;
-        // petData.value.age = response.data.age;
-        // petData.value.color = response.data.color;
-        // petData.value.description = response.data.description;
-        // petData.value.sex = response.data.sex;
-        // petData.value.available = response.data.available;
-        // petData.value.spayed = response.data.spayed;
-        // petData.value.publish = response.data.is_published
-      })
-      .catch((error) => {
-        $q.notify({
-          color: "red-5",
-          textColor: "white",
-          message: error.message,
-        });
-      });
+    const response = await apiCall("get", "/petposts/" + route.params.slug);
+    if (response.status == 200) {
+      for (const [key, value] of Object.entries(petData.value)) {
+        petData.value[key] = response.data[key];
+      }
+    }
   }
 }
 

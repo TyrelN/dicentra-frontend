@@ -96,7 +96,7 @@
 </template>
 
 <script setup>
-import { api } from "../boot/axios";
+import { apiCall } from "../utils/apiFunctions.js";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useMeta } from "quasar";
@@ -121,36 +121,43 @@ async function refreshFilter() {
 
 async function getApplications() {
   loader.value = true;
-  api
-    .get("/api/v1/fosterforms?status=" + status.value)
-    .then((response) => {
-      fosterApps.value = response.data;
-      loader.value = false;
-    })
-    .catch((error) => {
-      alert(error.message, "red-5", "primary");
-      loader.value = false;
-    });
-  api
-    .get("/api/v1/volunteerforms?status=" + status.value)
-    .then((response) => {
-      volunteerApps.value = response.data;
-      loader.value = false;
-    })
-    .catch((error) => {
-      alert(error.message, "red-5", "primary");
-      loader.value = false;
-    });
-  api
-    .get("/api/v1/adoptforms?status=" + status.value)
-    .then((response) => {
-      adoptApps.value = response.data;
-      loader.value = false;
-    })
-    .catch((error) => {
-      alert(error.message, "red-5", "primary");
-      loader.value = false;
-    });
+  const fosterAnswers = await apiCall("get", "/fosterforms?status=" + status.value);
+  const adoptAnswers = await apiCall("get", "/adoptforms?status=" + status.value);
+  const volunteerAnswers = await apiCall("get", "/volunteerforms?status=" + status.value);
+  loader.value = false;
+  fosterApps.value = fosterAnswers.data;
+  adoptApps.value = adoptAnswers.data;
+  volunteerApps.value = volunteerAnswers;
+  // api
+  //   .get("/api/v1/fosterforms?status=" + status.value)
+  //   .then((response) => {
+  //     fosterApps.value = response.data;
+  //     loader.value = false;
+  //   })
+  //   .catch((error) => {
+  //     alert(error.message, "red-5", "primary");
+  //     loader.value = false;
+  //   });
+  // api
+  //   .get("/api/v1/volunteerforms?status=" + status.value)
+  //   .then((response) => {
+  //     volunteerApps.value = response.data;
+  //     loader.value = false;
+  //   })
+  //   .catch((error) => {
+  //     alert(error.message, "red-5", "primary");
+  //     loader.value = false;
+  //   });
+  // api
+  //   .get("/api/v1/adoptforms?status=" + status.value)
+  //   .then((response) => {
+  //     adoptApps.value = response.data;
+  //     loader.value = false;
+  //   })
+  //   .catch((error) => {
+  //     alert(error.message, "red-5", "primary");
+  //     loader.value = false;
+  //   });
 }
 onMounted(getApplications);
 </script>

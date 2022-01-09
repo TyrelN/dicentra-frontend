@@ -60,7 +60,7 @@
 
 <script setup>
 import { useQuasar } from "quasar";
-import { api } from "../boot/axios";
+import { apiCall } from "../utils/apiFunctions.js"
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -82,7 +82,7 @@ const message = ref("");
 const image = ref(null);
 const backenderrors = ref([]);
 
-function onSubmit() {
+async function onSubmit() {
   store.commit("setLoading", true);
   backenderrors.value = [];
   const formData = new FormData();
@@ -90,32 +90,26 @@ function onSubmit() {
   if(image.value){
     formData.append("image", image.value);
   }
-  api
-    .post("/api/v1/currentevent/", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then((response) => {
-      store.commit("setLoading", false);
-      alert("current event created", "dark", "primary");
-
+  const response = await apiCall("post", "/currentevent/", formData, true);
+    store.commit("setLoading", false);
+    const success =
+      response.status == 200
+        ? "current event updated"
+        : response.status == 201
+        ? "current event created"
+        : "";
+    if (success) {
+      alert(success, "primary", "dark");
       router.push("/");
-    })
-    .catch((error) => {
-      store.commit("setLoading", false);
-      if (error.response) {
-        if (error.response.status == 400) {
-          for (const element in error.response.data) {
-            backenderrors.value.push(
-              `${element}: ${error.response.data[element]}`
-            );
-          }
-        }
-      } else if (error.message) {
-        backenderrors.value.push(`${error.message}`);
-      }
-    });
+    } else if (response.status == 400) {
+      handleErrors(response);
+    }
+}
+
+function handleErrors(error) {
+  for (const element in error.data) {
+    backenderrors.value.push(`${element}: ${error.data[element]}`);
+  }
 }
 
 function onRejected(rejectedEntries) {

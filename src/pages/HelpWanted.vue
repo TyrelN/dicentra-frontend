@@ -74,10 +74,10 @@
 
 <script setup>
 import { useQuasar } from "quasar";
-import { api } from "../boot/axios.js";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import alert from "../utils/alert";
+import { apiCall } from "../utils/apiFunctions.js";
 import { useMeta } from "quasar";
 useMeta({
   title: "Help Wanted",
@@ -97,17 +97,23 @@ const expanded = ref(false);
 
 async function getWantedAds() {
   loader.value = true;
-  api
-    .get("/api/v1/wantedads/")
-    .then((response) => {
-      wantedAds.value = response.data;
-      wantedAds.value.forEach((element) => (element.show = false));
-      loader.value = false;
-    })
-    .catch((error) => {
-      loader.value = false;
-      alert(error.message, "red-5", "primary");
-    });
+  const response = await apiCall("get", "/wantedads/");
+  loader.value = false;
+  if(response.status == 200){
+  wantedAds.value = response.data;
+  wantedAds.value.forEach((element) => (element.show = false));
+  }
+  // api
+  //   .get("/api/v1/wantedads/")
+  //   .then((response) => {
+  //     wantedAds.value = response.data;
+  //     wantedAds.value.forEach((element) => (element.show = false));
+  //     loader.value = false;
+  //   })
+  //   .catch((error) => {
+  //     loader.value = false;
+  //     alert(error.message, "red-5", "primary");
+  //   });
 }
 function deleteWantedPost(slug) {
   $q.dialog({
@@ -116,15 +122,11 @@ function deleteWantedPost(slug) {
     class: "bg-dark text-primary",
     cancel: true,
   })
-    .onOk(() => {
-      api
-        .delete("/api/v1/wantedads/" + slug)
-        .then((response) => {
-          getWantedAds();
-        })
-        .catch((error) => {
-          alert(error.message, "red-5", "primary");
-        });
+    .onOk(async () => {
+      const response = await apiCall("delete", "/wantedads/" + slug);
+      if(response.status == 204){
+        getWantedAds();
+      }
     })
     .onCancel(() => {});
 }

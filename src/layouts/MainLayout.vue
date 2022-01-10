@@ -154,7 +154,6 @@ function onResize(size) {
 }
 function logout() {
   api.defaults.headers.common["Authorization"] = "";
-
   localStorage.removeItem("token");
   store.commit("removeToken");
 }

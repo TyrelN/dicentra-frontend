@@ -87,12 +87,8 @@ async function onSubmit() {
     formData
   );
   store.commit("setLoading", false);
-  if (response.status == 200) {
-    //logout user on client side
-    api.defaults.headers.common["Authorization"] = "";
-    localStorage.removeItem("token");
-    store.commit("removeToken");
-    alert("Check your submitted email for further instructions!", "primary", "dark");
+  if (response.status == 204) {
+    alert("Check the email submitted for further instructions!", "positive", "dark");
     router.push("/");
   } else if (response.status == 400) {
     handleErrors(response);

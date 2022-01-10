@@ -65,6 +65,7 @@
 <script setup>
 import { useQuasar } from "quasar";
 import { ref, computed } from "vue";
+import { api } from "../boot/axios.js"
 import { apiCall } from "../utils/apiFunctions.js";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";

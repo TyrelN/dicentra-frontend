@@ -219,6 +219,7 @@ useMeta({
     description:{ name: "description", content:"A page for learning more about our values as an animal rescue"}
   }
 });
+//enables the carousel at the top of the page
 const slide = ref(1);
 const autoplay = ref(true);
 </script>

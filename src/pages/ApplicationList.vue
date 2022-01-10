@@ -127,37 +127,7 @@ async function getApplications() {
   loader.value = false;
   fosterApps.value = fosterAnswers.data;
   adoptApps.value = adoptAnswers.data;
-  volunteerApps.value = volunteerAnswers;
-  // api
-  //   .get("/api/v1/fosterforms?status=" + status.value)
-  //   .then((response) => {
-  //     fosterApps.value = response.data;
-  //     loader.value = false;
-  //   })
-  //   .catch((error) => {
-  //     alert(error.message, "red-5", "primary");
-  //     loader.value = false;
-  //   });
-  // api
-  //   .get("/api/v1/volunteerforms?status=" + status.value)
-  //   .then((response) => {
-  //     volunteerApps.value = response.data;
-  //     loader.value = false;
-  //   })
-  //   .catch((error) => {
-  //     alert(error.message, "red-5", "primary");
-  //     loader.value = false;
-  //   });
-  // api
-  //   .get("/api/v1/adoptforms?status=" + status.value)
-  //   .then((response) => {
-  //     adoptApps.value = response.data;
-  //     loader.value = false;
-  //   })
-  //   .catch((error) => {
-  //     alert(error.message, "red-5", "primary");
-  //     loader.value = false;
-  //   });
+  volunteerApps.value = volunteerAnswers.data;
 }
 onMounted(getApplications);
 </script>

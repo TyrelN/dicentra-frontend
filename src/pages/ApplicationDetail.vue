@@ -9,7 +9,7 @@
         width="250px"
         height="230px"
         type="image/svg+xml"
-        data="loadingcatcss.svg"
+        data="../loadingcatcss.svg"
         class="absolute-center"
       ></object>
       <div v-else class="row q-mx-xs">
@@ -102,6 +102,7 @@ const props = defineProps({
 let questionsToMap = {};
 const tempMap = new Map();
 
+//sets the state of an application (reject, undecided or accepted)
 async function approveApplication() {
   store.commit("setLoading", true);
   const formData = new FormData();
@@ -113,21 +114,7 @@ async function approveApplication() {
       router.push("/applicationlist");
       }
 }
-  // api
-  //   .patch(
-  //     "/api/v1/" + route.params.formtype + "/" + route.params.slug + "/",
-  //     formData
-  //   )
-  //   .then((response) => {
-  //     store.commit("setLoading", false);
-  //     alert("Application status updated", "dark", "primary");
-  //     router.push("/applicationlist");
-  //   })
-  //   .catch((error) => {
-  //     store.commit("setLoading", false);
-  //     alert(error.message, "red-5", "primary");
-  //   });
-//}
+
 
 async function loadData() {
   loader.value = true;
@@ -135,6 +122,7 @@ async function loadData() {
   loader.value = false;
   if (response.status == 200) {
     applicationData.value = response.data;
+    //determine which set of questions to use when mapping
       switch (route.params.formtype) {
         case "adoptforms":
           questionsToMap = adoptQuestions;
@@ -146,36 +134,12 @@ async function loadData() {
           questionsToMap = volunteerQuestions;
           break;
       }
+      //by giving application data and questions from questions.js the same key name, we can bind each question to each answer
       for (const key in questionsToMap) {
         tempMap.set(`${questionsToMap[key]}`, applicationData.value[key]);
         answers.value = Object.fromEntries(tempMap);
       }
   }
-  // api
-  //   .get("/api/v1/" + route.params.formtype + "/" + route.params.slug)
-  //   .then((response) => {
-  //     loader.value = false;
-  //     applicationData.value = response.data;
-  //     switch (route.params.formtype) {
-  //       case "adoptforms":
-  //         questionsToMap = adoptQuestions;
-  //         break;
-  //       case "fosterforms":
-  //         questionsToMap = fosterQuestions;
-  //         break;
-  //       case "volunteerforms":
-  //         questionsToMap = volunteerQuestions;
-  //         break;
-  //     }
-  //     for (const key in questionsToMap) {
-  //       tempMap.set(`${questionsToMap[key]}`, applicationData.value[key]);
-  //       answers.value = Object.fromEntries(tempMap);
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     loader.value = false;
-  //     alert(error.message, "red-5", "primary");
-  //   });
 }
 
 onMounted(loadData);

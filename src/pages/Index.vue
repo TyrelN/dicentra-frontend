@@ -54,7 +54,7 @@
       >
         <div class="row">
           <div class="col-xs-12 col-md-6 text-left">
-            <div class="q-my-xl" style="opacity: 0.6; font-size: 1.5rem">
+            <div class="q-my-xl q-mx-sm" style="opacity: 0.6; font-size: 1.5rem">
               {{ current.message }}
             </div>
           </div>

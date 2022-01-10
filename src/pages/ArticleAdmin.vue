@@ -281,16 +281,6 @@ async function loadData() {
         article.value[key] = response.data[key];
       }
     }
-    // api
-    //   .get("/api/v1/articles/" + route.params.slug)
-    //   .then((response) => {
-    //     for (const [key, value] of Object.entries(article.value)) {
-    //       article.value[key] = response.data[key];
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     alert(error.message, "red-5", "white");
-    //   });
   }
 }
 

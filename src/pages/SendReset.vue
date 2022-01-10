@@ -104,30 +104,4 @@ function handleErrors(error) {
     backenderrors.value.push(`${element}: ${error.data[element]}`);
   }
 }
-  // api
-  //   .post("/api/v1/users/reset_password/", formData) //djoser url
-  //   .then((response) => {
-  //     store.commit("setLoading", false);
-  //     alert(
-  //       "Submitted! Check your email for further instructions",
-  //       "positive",
-  //       "dark"
-  //     );
-  //     router.push("/");
-  //   })
-  //   .catch((error) => {
-  //     store.commit("setLoading", false);
-  //     if (error.response) {
-  //       if (error.response.status == 400) {
-  //         for (const element in error.response.data) {
-  //           backenderrors.value.push(
-  //             `${element}: ${error.response.data[element]}`
-  //           );
-  //         }
-  //       }
-  //     } else if (error.message) {
-  //       alert(error.message, "red-5", "primary");
-  //     }
-  //   });
-//}
 </script>

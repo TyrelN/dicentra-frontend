@@ -227,19 +227,6 @@ async function getArticles() {
     latestArticle.value = response.data.shift();
     articles.value = response.data;
   }
-  // api
-  //   .get(
-  //     "/api/v1/articles?is_published=" + (published.value ? "True" : "False")
-  //   )
-  //   .then((response) => {
-  //     latestArticle.value = response.data.shift();
-  //     articles.value = response.data;
-  //     loader.value = false;
-  //   })
-  //   .catch((error) => {
-  //     alert(error.message, "red-5", "primary");
-  //     loader.value = false;
-  //   });
 }
 
 async function toggleDrafts() {

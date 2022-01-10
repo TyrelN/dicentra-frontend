@@ -103,17 +103,6 @@ async function getWantedAds() {
   wantedAds.value = response.data;
   wantedAds.value.forEach((element) => (element.show = false));
   }
-  // api
-  //   .get("/api/v1/wantedads/")
-  //   .then((response) => {
-  //     wantedAds.value = response.data;
-  //     wantedAds.value.forEach((element) => (element.show = false));
-  //     loader.value = false;
-  //   })
-  //   .catch((error) => {
-  //     loader.value = false;
-  //     alert(error.message, "red-5", "primary");
-  //   });
 }
 function deleteWantedPost(slug) {
   $q.dialog({

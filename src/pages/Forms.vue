@@ -338,20 +338,6 @@ async function onSubmit() {
     } else if (response.status == 400) {
       handleErrors(response);
     }
-    //   api
-    //     .post("/api/v1/" + formURL, formData)
-    //     .then((response) => {
-    //       store.commit("setLoading", false);
-    //       //wipe the local storage answers
-    //       localStorage.removeItem("contact");
-    //       localStorage.removeItem(activeQuestions);
-    //       alert("application submitted", "dark", "primary");
-    //       router.push("/success");
-    //     })
-    //     .catch((error) => {
-    //       store.commit("setLoading", false);
-    //       handleErrors(error);
-    //     });
   }
 }
 function handleErrors(error) {
@@ -371,7 +357,7 @@ function processForm() {
   //use the spread operator to add all form entries to formData
   const combinedForm = {
     ...contact.value,
-    //we need to ensure call times is a string and not an array to match the database field
+    //call times must be string format to match the database field
     calltimes: contact.value.calltimes.toString().replace(/,/g, ", "), //adds spaces to the created string from the array for readability
     ...questions, //spread operator to append every question here
   };

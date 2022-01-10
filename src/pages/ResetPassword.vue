@@ -127,38 +127,4 @@ function handleErrors(error) {
     backenderrors.value.push(`${element}: ${error.data[element]}`);
   }
 }
-
-// api
-//   .post("/api/v1/users/reset_password_confirm/", {
-//     uid: route.params.uid,
-//     token: route.params.token,
-//     new_password: newPassword.value,
-//     re_new_password: reNewPassword.value,
-//   })
-//   .then((response) => {
-//     store.commit("setLoading", false);
-//     //logout user on client side
-//     api.defaults.headers.common["Authorization"] = "";
-//     localStorage.removeItem("token");
-//     store.commit("removeToken");
-
-//     alert("password has been reset!", "positive", "dark");
-
-//     router.push("/");
-//   })
-//   .catch((error) => {
-//     store.commit("setLoading", false);
-//     if (error.response) {
-//       if (error.response.status == 400) {
-//         for (const element in error.response.data) {
-//           backenderrors.value.push(
-//             `${element}: ${error.response.data[element]}`
-//           );
-//         }
-//       }
-//     } else if (error.message) {
-//       alert(error.message, "red-5", "primary");
-//     }
-//   });
-//}
 </script>

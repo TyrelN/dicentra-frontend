@@ -118,16 +118,6 @@ async function getArticle() {
   if (response.status == 200) {
     article.value = response.data;
   }
-  // api
-  //   .get("/api/v1/articles/" + route.params.slug)
-  //   .then((response) => {
-  //     article.value = response.data;
-  //     loader.value = false;
-  //   })
-  //   .catch((error) => {
-  //     alert(error.message, "red-5", "primary");
-  //     loader.value = false;
-  //   });
 }
 
 onMounted(getArticle);

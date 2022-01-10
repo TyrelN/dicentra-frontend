@@ -73,18 +73,26 @@
       >
         links:
       </p>
+      <div>
       <a v-if="article.url1" :href="article.url1" target="_blank">
         {{ article.url1 }}
       </a>
+      </div>
+      <div>
       <a v-if="article.url2" :href="article.url2">
         {{ article.url2 }}
       </a>
+      </div>
+      <div>
       <a v-if="article.url3" :href="article.url3">
         {{ article.url3 }}
       </a>
+      </div>
+      <div>
       <a v-if="article.url4" :href="article.url4">
         {{ article.url4 }}
       </a>
+      </div>
     </div>
   </div>
 </template>

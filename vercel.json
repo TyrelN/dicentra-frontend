@@ -1,6 +1,17 @@
 {
-    "routes": [
-      { "handle": "filesystem" },
-      { "src": "/.*", "dest": "/index.html" }
-    ]
-  }
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/service-worker.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    }
+  ]
+}

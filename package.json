@@ -9,7 +9,7 @@
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "dev": "quasar dev",
-    "build": "quasar build",
+    "build": "quasar build -m pwa",
     "deploy": "vercel",
     "build:pwa": "quasar build -m pwa",
     "test:unit": "jest --updateSnapshot",
@@ -26,6 +26,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "quasar": "^2.4.4",
+    "vue-test-utils": "^1.0.0-beta.11",
     "vuex": "^4.0.1"
   },
   "devDependencies": {
@@ -39,7 +40,8 @@
     "eslint-plugin-jest": "^25.2.2",
     "eslint-plugin-vue": "^7.0.0",
     "eslint-webpack-plugin": "^2.4.0",
-    "sitemap-webpack-plugin": "^1.1.1"
+    "sitemap-webpack-plugin": "^1.1.1",
+    "workbox-webpack-plugin": "^6.0.0"
   },
   "browserslist": [
     "last 10 Chrome versions",

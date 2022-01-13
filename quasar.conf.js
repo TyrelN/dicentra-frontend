@@ -105,7 +105,7 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      https: false,
+      https: true,
       port: 8080,
       open: true // opens browser window automatically
     },
@@ -169,13 +169,13 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `Nicola Valley Animal Rescue Society`,
+        name: `Nicola Valley Animal Rescue`,
         short_name: `NVARS`,
         description: `A web platform for adopting and supporting the animals of the Nicola Valley Animal Rescue`,
         display: 'standalone',
         orientation: 'portrait',
-        background_color: '#ffffff',
-        theme_color: '#027be3',
+        background_color: '#393946',
+        theme_color: '#393946',
         icons: [
           {
             src: 'icons/icon-128x128.png',

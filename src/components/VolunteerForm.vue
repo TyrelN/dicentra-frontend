@@ -201,7 +201,7 @@
         outlined
         type="textarea"
         v-model="questions.question12"
-        hint="Eg: Volunteered at NVAR, cleaning bedding and feeding cats for two years"
+        hint="Eg: Volunteered at NVARS, cleaning bedding and feeding cats for two years"
         
         :rules="[(val) => (val && val.length > 0) || 'Field required']"
       />

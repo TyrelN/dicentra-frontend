@@ -39,23 +39,13 @@ import createQuasarApp from './app.js'
 import quasarUserOptions from './quasar-user-options.js'
 
 
-import 'app/src-pwa/register-service-worker'
-
 
 
 import { addPreFetchHooks } from './client-prefetch.js'
 
 
 
-console.info('[Quasar] Running PWA.')
-console.info('[Quasar] PWA: Use devtools > Application > "Bypass for network" to not break Hot Module Replacement while developing.')
 
-
-
-// Needed only for iOS PWAs
-if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && window.navigator.standalone) {
-  import(/* webpackChunkName: "fastclick"  */ '@quasar/fastclick')
-}
 
 
 const publicPath = `/`

@@ -9,7 +9,7 @@
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "dev": "quasar dev",
-    "build": "quasar build -m pwa",
+    "build": "quasar build",
     "deploy": "vercel",
     "build:pwa": "quasar build -m pwa",
     "test:unit": "jest --updateSnapshot",

@@ -229,6 +229,7 @@ const current = ref({});
 const loader = ref(false);
 const isAuthenticated = computed(() => store.getters.isAuthenticated);
 async function getCurrent() {
+  navigator.serviceWorker.getRegistrations().then( function(registrations) { for(let registration of registrations) { registration.unregister(); } }); 
   //loader acts as a loading animation until requested data arrives
   loader.value = true;
   const response = await apiCall("get", "/currentevent/");

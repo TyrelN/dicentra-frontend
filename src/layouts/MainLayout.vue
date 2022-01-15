@@ -34,7 +34,7 @@
         <div
           class="
             GL__toolbar-link
-            q-ml-lg q-gutter-md
+            q-ml-md q-gutter-md
             text2
             text-weight-bold
             row

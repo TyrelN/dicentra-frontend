@@ -7,7 +7,7 @@
     >
       <q-img src="../assets/spookycrawl.webp" height="40vh" fit="cover" />
       <div class="bg-info q-pa-md absolute-bottom text-primary text-center">
-        <div class="text-h3" style="font-size: 2.4rem">
+        <div class="text-h3" style="font-size: 2rem">
           Nicola Valley Animal Rescue
         </div>
       </div>
@@ -31,62 +31,17 @@
         />
       </video>
       <div class="bg-info q-pa-md absolute-bottom text-primary text-center">
-        <div class="text-h3" style="max-font-size: 3rem">
+        <div class="text-h3 q-py-md" style="font-size:3.5rem">
           Nicola Valley Animal Rescue
-        </div>
-        <div class="text-subtitle1 q-ma-sm">
-          Please spay and neuter your pets!
         </div>
       </div>
     </div>
     <div class="relative-position text-center">
-      <object
-        v-if="loader"
-        width="250px"
-        height="230px"
-        type="image/svg+xml"
-        data="loadingcatcss.svg"
-      ></object>
-      <div
-        v-else-if="current"
-        class="relative-position q-px-lg"
-        style="bottom: 4vh; max-width: 1300px; margin: auto"
-      >
-        <div class="row">
-          <div class="col-xs-12 col-md-6 text-left">
-            <div class="q-my-xl q-mx-sm" style="opacity: 0.6; font-size: 1.5rem">
-              {{ current.message }}
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <q-img
-              loading="eager"
-              height="45vh"
-              style="border-radius: 10px"
-              :src="current.get_image"
-            />
-          </div>
-        </div>
-      </div>
-      <div style="margin: auto; text-align: center">
-        <q-btn
-          v-if="isAuthenticated"
-          dense
-          size="14px"
-          color="positive"
-          text-color="dark"
-          @click="$router.push('/currenteventadmin')"
-          class="shadow-12 q-ma-md"
-          padding="12px"
-          style="border-radius: 10px; width: 300px"
-          >Post a current event</q-btn
-        >
-      </div>
-      <div class="text-h2 q-my-lg" style="opacity: 0.6">Make a Difference</div>
+      <div class="text-h3 q-mb-sm relative-position" style="opacity: 0.6; bottom: 2vh">Make a Difference</div>
       <div class="q-mx-md q-px-lg text-center">
         <div
-          class="row items-center"
-          style="
+          class="row items-center relative-position q-gutter-md"
+          style="      
             justify-content: center;
             align-items: center;
             max-width: 1200px;
@@ -94,12 +49,12 @@
           "
         >
           <div
-            class="col-sm-12 col-md-3 q-pa-md q-mx-md q-my-lg text shadow-14"
+            class="col-sm-12 col-md-3 q-px-md q-mx-lg text shadow-14"
             style="
               opacity: 0.6;
               border-radius: 10px;
-              max-height: 500px;
-              min-height: 390px;
+              max-height: 350px;
+              min-height: 300px;
             "
           >
             <h4 class="text-weight-medium">Adopt</h4>
@@ -109,12 +64,12 @@
             </div>
           </div>
           <div
-            class="col-sm-12 col-md-3 q-pa-md q-mx-md q-my-lg text shadow-14"
+            class="col-sm-12 col-md-3 q-px-md q-mx-lg text shadow-14"
             style="
               opacity: 0.6;
               border-radius: 10px;
-              max-height: 500px;
-              min-height: 390px;
+              max-height: 350px;
+              min-height: 300px;
             "
           >
             <h4 class="text-weight-medium">Foster</h4>
@@ -124,12 +79,12 @@
             </div>
           </div>
           <div
-            class="col-sm-12 col-md-3 q-pa-md q-mx-md q-my-lg text shadow-14"
+            class="col-sm-12 col-md-3 q-px-md q-mx-lg text shadow-14"
             style="
               opacity: 0.6;
               border-radius: 10px;
-              max-height: 500px;
-              min-height: 390px;
+              max-height: 350px;
+              min-height: 300px;
             "
           >
             <h4 class="text-weight-medium">Volunteer</h4>
@@ -158,7 +113,7 @@
         </div>
       </div>
 
-      <div class="q-ma-lg q-pa-lg text-h2" style="opacity: 0.6">
+      <div class="q-ma-lg q-pa-lg text-h3" style="opacity: 0.6">
         Stay Informed
       </div>
       <div
@@ -190,8 +145,8 @@
           <q-img style="border-radius: 10px" src="../assets/cat8re.webp" />
         </div>
       </div>
-      <div class="center relative-position" style="top: 40px">
-        <div class="q-mb-lg text-h2" style="opacity: 0.6">Donate</div>
+      <div class="center relative-position q-py-xl" style="">
+        <div class="q-mb-lg text-h3" style="opacity: 0.6">Donate!</div>
 
         <div class="q-mx-xl q-mb-xl text" style="opacity: 0.6; font-size: 24px">
           We are always thankful for any donations contributed to our rescue.
@@ -206,6 +161,51 @@
         >
           Donate
         </q-btn>
+      </div>
+      <div style="margin: auto; text-align: center">
+        <q-btn
+          v-if="isAuthenticated"
+          dense
+          size="14px"
+          color="positive"
+          text-color="dark"
+          @click="$router.push('/currenteventadmin')"
+          class="shadow-12 q-ma-md"
+          padding="12px"
+          style="border-radius: 10px; width: 300px"
+          >Post a current event</q-btn
+        >
+      </div>
+      <div class="relative-position q-mt-lg">
+        <object
+        v-if="loader"
+        width="150px"
+        height="130px"
+        type="image/svg+xml"
+        data="loadingcatcss.svg"
+      ></object>
+      <div
+        v-else-if="current"
+        style="max-width: 1300px; margin: auto;"
+      >
+      <div class="q-mx-lg shadow-14" style="border-radius: 10px">
+        <div class="row">
+          <div class="col-xs-12 col-md-6 text-left">
+            <div class="q-ma-xl" style="opacity: 0.6; font-size: 1.5rem">
+              {{ current.message }}
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <q-img
+              loading="eager"
+              height="45vh"
+              style="border-radius: 10px"
+              :src="current.get_image"
+            />
+          </div>
+        </div>
+      </div>
+      </div>
       </div>
     </div>
   </div>

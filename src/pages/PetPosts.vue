@@ -29,8 +29,8 @@
     </div>
     <object
       v-if="loader"
-      width="250px"
-      height="230px"
+      width="150px"
+      height="130px"
       type="image/svg+xml"
       data="loadingcatcss.svg"
       style="

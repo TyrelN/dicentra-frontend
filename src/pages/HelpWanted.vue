@@ -3,7 +3,7 @@
     class="q-mt-lg"
     style="max-width: 500px margin: auto; text-align: center"
   >
-  <div class="text-h3 text-center">Help Wanted</div>
+  <div class="text-h3 text-center text-dark">Help Wanted</div>
       <div class="text q-ma-md">
         Our posts are consistently updated!
       </div>
@@ -21,8 +21,8 @@
     >
     <object
       v-if="loader"
-      width="250px"
-      height="230px"
+      width="150px"
+      height="130px"
       type="image/svg+xml"
       data="loadingcatcss.svg"
       class="absolute-center"

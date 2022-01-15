@@ -1,7 +1,7 @@
 <template>
   <div class="q-mt-lg">
     <div style="text-align: center">
-      <div class="text-h3 text-center q-ma-sm">Articles</div>
+      <div class="text-h3 text-center text-dark q-ma-sm">Articles</div>
       <q-btn
         v-if="isAuthenticated"
         dense
@@ -29,8 +29,8 @@
     </div>
     <object
       v-if="loader"
-      width="250px"
-      height="230px"
+      width="150px"
+      height="130px"
       type="image/svg+xml"
       data="loadingcatcss.svg"
       class="absolute-center"

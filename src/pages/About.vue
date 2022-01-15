@@ -43,7 +43,7 @@
       </div>
       <div class="row items-center" style="max-width: 900px">
         <div class="text-center q-ma-xl">
-          <div class="col-12 q-mt-md text-h4" style="opacity: 0.8">
+          <div class="col-12 q-mt-md text-dark text-h3" style="opacity: 0.8">
             Our Calling
           </div>
           <div class="row">
@@ -180,9 +180,6 @@
               alt="mopic"
             >
             </q-img>
-          </div>
-          <div class="col-12 q-mt-md text-h4" style="opacity: 0.8">
-            How you can help
           </div>
           <div class="col-12 q-mt-md text" style="opacity: 0.8">
             Besides applying to volunteer, any notice of stray dogs or abandoned

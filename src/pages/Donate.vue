@@ -4,7 +4,7 @@
     style="max-width: 900px; margin: 0 auto"
   >
     <div class="q-mx-md q-mt-lg" style="border-radius: 25px">
-      <div class="text-h3 text-center q-ma-sm">Donate</div>
+      <div class="text-h3 text-center text-dark q-ma-sm">Donate</div>
       <div class="text q-mx-xl q-my-md">
         If you would like to support our rescue work at NVARS, you may safely
         donate using one of the following methods:

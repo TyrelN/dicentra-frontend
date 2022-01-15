@@ -25,6 +25,7 @@ There are some areas of the design that should be noted with scrutiny:
 
 ## Additional Notes:
 * The frontend project is deployed on [Vercel](https://vercel.com/).
+* The logo was designed by Tyrel Narciso. All rights reserved.
 
 
 ## References and Resources

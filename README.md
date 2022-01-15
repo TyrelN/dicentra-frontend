@@ -3,7 +3,7 @@
 <div align="center"><img src="https://github.com/TyrelN/dicentra-frontend/blob/main/src/assets/nvars-logo-light.svg" width="300"/></div>
 
 ## About
-Dicentra is a full-stack website designed for Nicola Valley Animal Rescue. The website acts as a platform for applications (to adopt, foster or volunteer), animal education, donations and more. This repo holds the frontend side of the project.
+Dicentra is a full-stack website designed for Nicola Valley Animal Rescue. The website acts as a platform for applications (to adopt, foster or volunteer), animal education, donations and more. This repo holds the single page application side of the project.
 
 Visit the website [here](https://www.nvars.ca/).
 
@@ -18,9 +18,9 @@ Reducing redundancy and creating a simple architecture while utilizing some of t
 
 ## Caveats
 There are some areas of the design that should be noted with scrutiny:
-* While the website itself loads quickly and performs well, the backend is deployed on Heroku using a free dyno, which falls asleep when there is no activity. When the dyno needs to wake up, it can lead to long loading times for sections requesting data. To alleviate this, a cat loading animation has been added for every page that could be subject to loading times. Another solution under consideration is converting the website into a progressive web app and caching the results of queries until new data is retrieved. This would suffice since most data being requested won't be changed very often, since volunteers are the only ones who will interface with the backend.
-* The backend error logging within forms is not robust. 400 status errors are generated as red text at the bottom of forms, but all other error messaging is covered as an alert.
-* Critical business logic could benefit from unit tests, which will be developed for critical business logic before further updates are underway. The codebase has undergone various rewrites in order to improve maintainability and allow for a simpler testing suite.
+* While the single page application itself loads very quickly, the backend is deployed on Heroku using a free dyno, which falls asleep when there is no activity. When the dyno needs to wake up, it can lead to long loading times for sections requesting data (10 seconds on average). To alleviate this, a cat loading animation has been added to every page/section that requests data.
+* The backend error logging within forms is a little rough around the edges. 400 status errors are generated as red text at the bottom of forms, but all other error messaging is covered as an alert and does not have robust coverage.
+* Critical business logic would benefit from unit testing, which are under development now with high priority. The codebase has undergone various rewrites in order to improve maintainability, and automated testing will be the next step in improving the codebase.
 
 
 ## Additional Notes:

@@ -40,7 +40,7 @@
         <q-card v-if="$q.screen.gt.sm" class="q-ma-xl shadow-14 bg-primary">
           <q-card-section horizontal>
             <q-card-section class="col-5">
-              <div class="text-h6 text-positive text-center">
+              <div class="text-h6 text-dark text-center">
                 {{ latestArticle.title }}
               </div>
               <q-card-section horizontal style="opacity: 0.6">
@@ -104,7 +104,7 @@
               {{ latestArticle.category }}
             </div>
           </q-card-section>
-          <q-card-section class="text-center text-h6 q-pa-sm text-positive">
+          <q-card-section class="text-center text-h6 q-pa-sm text-dark">
             {{ latestArticle.title }}
           </q-card-section>
           <q-separator />

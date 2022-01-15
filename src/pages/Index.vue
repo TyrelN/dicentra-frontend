@@ -177,6 +177,7 @@
         >
       </div>
       <div class="relative-position q-mt-lg">
+        <div class="q-mb-xl text-h3" style="opacity: 0.6">Rescue Updates</div>
         <object
         v-if="loader"
         width="150px"

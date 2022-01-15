@@ -20,7 +20,7 @@ Reducing redundancy and creating a simple architecture while utilizing some of t
 There are some areas of the design that should be noted with scrutiny:
 * While the single page application itself loads very quickly, the backend is deployed on Heroku using a free dyno, which falls asleep when there is no activity. When the dyno needs to wake up, it can lead to long loading times for sections requesting data (10 seconds on average). To alleviate this, a cat loading animation has been added to sections that rely on data.
 * The backend error logging within forms is a little rough around the edges. 400 status errors are generated as red text at the bottom of forms, but all other error messaging is covered as an alert and does not have robust coverage.
-* Critical business logic would benefit from unit testing, which are under development now with high priority. The codebase has undergone various rewrites in order to improve maintainability, and automated testing will be the next step in improving the codebase.
+* Critical business logic would benefit from unit testing, which is underway. The codebase has undergone numerous rewrites to improve code structure. Automated testing will further improve the maintainability and stability of the project.
 
 
 ## Additional Notes:

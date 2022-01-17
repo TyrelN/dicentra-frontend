@@ -184,6 +184,7 @@
         height="130px"
         type="image/svg+xml"
         data="loadingcatcss.svg"
+        class="absolute-center"
       ></object>
       <div
         v-else-if="current"

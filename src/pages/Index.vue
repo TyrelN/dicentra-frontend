@@ -7,7 +7,7 @@
     >
       <q-img src="../assets/spookycrawl.webp" height="40vh" fit="cover" />
       <div class="bg-info q-pa-md absolute-bottom text-primary text-center">
-        <div class="text-h3" style="font-size: 2rem">
+        <div class="text-h3" style="font-size: 1.8rem">
           Nicola Valley Animal Rescue
         </div>
       </div>

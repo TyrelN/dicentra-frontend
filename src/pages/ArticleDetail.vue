@@ -24,7 +24,7 @@
       <p class="text-subtitle2 text-dark q-mb-xl">{{ article.category }}</p>
       <q-img
         v-if="article.header_image"
-        style="max-height: 600px"
+        style="max-height: 500px"
         :src="article.header_image"
       ></q-img>
       <p
@@ -36,7 +36,7 @@
       </p>
       <q-img
         v-if="article.content_image"
-        style="max-height: 600px"
+        style="max-height: 500px"
         :src="article.content_image"
       >
       </q-img>
@@ -52,7 +52,7 @@
       </p>
       <q-img
         v-if="article.content_image_second"
-        style="max-height: 600px"
+        style="max-height: 500px"
         :src="article.content_image_second"
       >
       </q-img>

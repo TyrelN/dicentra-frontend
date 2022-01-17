@@ -233,7 +233,7 @@ async function toggleDrafts() {
   published.value = !published.value;
   getArticles();
 }
-function deletePetPost(slug) {
+function deleteArticle(slug) {
   $q.dialog({
     title: "Delete",
     message: `Are you sure you want to delete this post?`,

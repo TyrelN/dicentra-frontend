@@ -40,7 +40,8 @@
     "eslint-plugin-jest": "^25.2.2",
     "eslint-plugin-vue": "^7.0.0",
     "eslint-webpack-plugin": "^2.4.0",
-    "sitemap-webpack-plugin": "^1.1.1"
+    "sitemap-webpack-plugin": "^1.1.1",
+    "workbox-webpack-plugin": "^6.0.0"
   },
   "browserslist": [
     "last 10 Chrome versions",

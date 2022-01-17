@@ -25,6 +25,7 @@
       <q-img
         v-if="article.header_image"
         class="col-7"
+        style="max-height: 300px"
         :src="article.header_image"
       ></q-img>
       <p

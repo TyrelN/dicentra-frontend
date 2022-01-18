@@ -184,7 +184,7 @@
         height="130px"
         type="image/svg+xml"
         data="loadingcatcss.svg"
-        style="top: 4vh"
+        class="q-mt-xl"
       ></object>
       <div
         v-else-if="current"

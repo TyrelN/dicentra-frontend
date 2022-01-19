@@ -225,6 +225,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { apiCall } from "../utils/apiFunctions.js";
+import { useMeta } from "quasar";
 useMeta({
   title: "Home",
   titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,

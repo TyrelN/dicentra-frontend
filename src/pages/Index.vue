@@ -225,6 +225,16 @@
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { apiCall } from "../utils/apiFunctions.js";
+useMeta({
+  title: "Home",
+  titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
+  meta: {
+    description: {
+      name: "description",
+      content: "The home page for Nicola Valley Animal Rescue",
+    },
+  },
+});
 const store = useStore();
 const current = ref({});
 const loader = ref(false);

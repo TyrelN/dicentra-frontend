@@ -58,7 +58,7 @@
             "
           >
             <h4 class="text-weight-medium">Adopt</h4>
-            <div class="q-pa-sm text text-weight-medium">
+            <div class="q-px-md text text-weight-medium">
               Good homes are always in demand. We have plenty of animals that
               are looking for lifelong partners.
             </div>
@@ -73,7 +73,7 @@
             "
           >
             <h4 class="text-weight-medium">Foster</h4>
-            <div class="q-pa-sm text-weight-medium text">
+            <div class="q-px-md text-weight-medium text">
               We are always looking for nuturing foster homes that can help us
               land cats into their lifelong homes.
             </div>
@@ -88,7 +88,7 @@
             "
           >
             <h4 class="text-weight-medium">Volunteer</h4>
-            <div class="q-pa-sm GL__toolbar-link text-weight-medium text">
+            <div class="q-px-md GL__toolbar-link text-weight-medium text">
               Volunteers are our lifeline for the animals! Check out our
               <router-link to="/helpwanted" class="text-black"
                 >help wanted page</router-link

@@ -119,7 +119,6 @@ async function approveApplication() {
 async function loadData() {
   loader.value = true;
   const response = await apiCall("get", "/"+route.params.formtype + "/" + route.params.slug);
-  loader.value = false;
   if (response.status == 200) {
     applicationData.value = response.data;
     //determine which set of questions to use when mapping
@@ -140,6 +139,7 @@ async function loadData() {
         answers.value = Object.fromEntries(tempMap);
       }
   }
+  loader.value = false;
 }
 
 onMounted(loadData);

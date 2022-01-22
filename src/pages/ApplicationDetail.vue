@@ -1,18 +1,19 @@
 <template>
   <div class="q-pt-xl center" style="">
+    <object
+      v-if="loader"
+      width="150px"
+      height="130px"
+      type="image/svg+xml"
+      data="../loadingcatcss.svg"
+      class="absolute-center"
+    ></object>
     <div
+      v-else
       style="border-radius: 25px"
       class="text-center flex flex-center q-ma-xl q-pa-xl shadow-14"
     >
-      <object
-        v-if="loader"
-        width="150px"
-        height="130px"
-        type="image/svg+xml"
-        data="loadingcatcss.svg"
-        class="absolute-center"
-      ></object>
-      <div v-else class="row q-mx-xs">
+      <div class="row q-mx-xs">
         <div class="col-12 q-pa-md">
           <div v-for="[key, value] in Object.entries(answers)" :key="key">
             <div class="text-dark">{{ key }}</div>
@@ -81,9 +82,12 @@ import { useMeta } from "quasar";
 useMeta({
   title: "Application Detail",
   titleTemplate: (title) => `${title} - Nicola Valley Animal Rescue`,
-  meta:{
-    description:{ name: "description", content:"The details of a specific application"}
-  }
+  meta: {
+    description: {
+      name: "description",
+      content: "The details of a specific application",
+    },
+  },
 });
 const loader = ref(false);
 const store = useStore();
@@ -107,37 +111,43 @@ async function approveApplication() {
   store.commit("setLoading", true);
   const formData = new FormData();
   formData.append("status", status.value);
-   const response = await apiCall("patch", "/" + route.params.formtype + "/" + route.params.slug + "/", formData);
-    store.commit("setLoading", false);
-      if(response.status == 200){
-      alert("Application status updated", "dark", "primary");
-      router.push("/applicationlist");
-      }
+  const response = await apiCall(
+    "patch",
+    "/" + route.params.formtype + "/" + route.params.slug + "/",
+    formData
+  );
+  store.commit("setLoading", false);
+  if (response.status == 200) {
+    alert("Application status updated", "dark", "primary");
+    router.push("/applicationlist");
+  }
 }
-
 
 async function loadData() {
   loader.value = true;
-  const response = await apiCall("get", "/"+route.params.formtype + "/" + route.params.slug);
+  const response = await apiCall(
+    "get",
+    "/" + route.params.formtype + "/" + route.params.slug
+  );
   if (response.status == 200) {
     applicationData.value = response.data;
     //determine which set of questions to use when mapping
-      switch (route.params.formtype) {
-        case "adoptforms":
-          questionsToMap = adoptQuestions;
-          break;
-        case "fosterforms":
-          questionsToMap = fosterQuestions;
-          break;
-        case "volunteerforms":
-          questionsToMap = volunteerQuestions;
-          break;
-      }
-      //by giving application data and questions from questions.js the same key name, we can bind each question to each answer
-      for (const key in questionsToMap) {
-        tempMap.set(`${questionsToMap[key]}`, applicationData.value[key]);
-        answers.value = Object.fromEntries(tempMap);
-      }
+    switch (route.params.formtype) {
+      case "adoptforms":
+        questionsToMap = adoptQuestions;
+        break;
+      case "fosterforms":
+        questionsToMap = fosterQuestions;
+        break;
+      case "volunteerforms":
+        questionsToMap = volunteerQuestions;
+        break;
+    }
+    //by giving application data and questions from questions.js the same key name, we can bind each question to each answer
+    for (const key in questionsToMap) {
+      tempMap.set(`${questionsToMap[key]}`, applicationData.value[key]);
+      answers.value = Object.fromEntries(tempMap);
+    }
   }
   loader.value = false;
 }

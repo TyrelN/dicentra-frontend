@@ -5,7 +5,7 @@
       width="150px"
       height="130px"
       type="image/svg+xml"
-      data="../loadingcatcss.svg"
+      data="../../loadingcatcss.svg"
       class="absolute-center"
     ></object>
     <div

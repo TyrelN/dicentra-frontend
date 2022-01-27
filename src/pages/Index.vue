@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="relative-position text-center">
-      <div class="text-h3 q-mb-sm relative-position" style="opacity: 0.6; bottom: 2vh">Make a Difference</div>
+      <div class="text-h3 q-mb-sm q-px-sm relative-position" style="opacity: 0.6; bottom: 2vh">Make a Difference</div>
       <div class="q-mx-md q-px-lg text-center">
         <div
           class="row items-center relative-position q-gutter-md"

@@ -146,7 +146,7 @@
         </div>
       </div>
       <div class="center relative-position q-py-xl" style="">
-        <div class="q-mb-lg text-h3" style="opacity: 0.6">Donate!</div>
+        <div class="q-mb-xl text-h3" style="opacity: 0.6">Donate!</div>
 
         <div class="q-mx-xl q-mb-xl text" style="opacity: 0.6; font-size: 24px">
           We are always thankful for any donations contributed to our rescue.

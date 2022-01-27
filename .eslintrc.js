@@ -19,7 +19,7 @@ module.exports = {
   extends: [
     // Base ESLint recommended rules
     // 'eslint:recommended',
-
+    'plugin:jest/recommended',
 
     // Uncomment any of the lines below to choose desired strictness,
     // but leave only one uncommented!

@@ -29,7 +29,7 @@
       ></q-img>
       <p
         v-if="article.content"
-        class="text-body text text-dark q-pa-xl"
+        class="text-body text text-dark q-py-xl"
         style="white-space: pre-wrap"
       >
         {{ article.content }}
@@ -45,7 +45,7 @@
       </div>
       <p
         v-if="article.content_second"
-        class="text-body text text-dark q-pa-xl"
+        class="text-body text text-dark q-py-xl"
         style="white-space: pre-wrap"
       >
         {{ article.content_second }}
@@ -61,7 +61,7 @@
       </div>
       <p
         v-if="article.content_third"
-        class="text-body text text-dark q-pa-xl"
+        class="text-body text text-dark q-py-xl"
         style="white-space: pre-wrap"
       >
         {{ article.content_third }}

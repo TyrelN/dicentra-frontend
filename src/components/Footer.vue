@@ -38,7 +38,7 @@
     <div class="text-center text-weight-light q-pa-sm">
       Nicola Valley Animal Rescue Society is a non-profit society registered in British Columbia, Canada.
     </div>
-    <div class="text-center q-px-xl text-weight-thin">
+    <div class="text-center q-px-xl q-pb-sm text-weight-thin">
     Nicola Valley Animal Rescue Society © 2022 |  <router-link to="/privacy" class="text-accent">Privacy Policy</router-link> | Website built by Tyrel Narciso
     </div>
     

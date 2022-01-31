@@ -12,7 +12,7 @@
       <div class="shadow-14 q-mx-md q-pa-xl">
         <div class="text-h6 text-center">Interac E-Transfer:</div>
         <div class="q-my-lg text">
-          E-transfers sent to donate@nvars.com are not subject to extra fees, meaning we get all of it!
+          E-transfers sent to donate@nvars.ca are not subject to extra fees, meaning we get all of it!
         </div>
         <div class="text-h6 q-my-md text-center">Credit Card, Paypal and PAD:</div>
         <div class="flex q-mb-md" style="text-align: center; display:block;">

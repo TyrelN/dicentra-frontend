@@ -10,11 +10,16 @@
         donate using one of the following methods:
       </div>
       <div class="shadow-14 q-mx-md q-pa-xl">
+        <div class="text-h6 text-center">Mailing Address:</div>
+        <div class="q-my-lg text text-center">
+          Box 325 | Merritt, BC | V1K 1B8
+           
+        </div>
         <div class="text-h6 text-center">Interac E-Transfer:</div>
         <div class="q-my-lg text">
           E-transfers sent to donate@nvars.ca are not subject to extra fees, meaning we get all of it! Set the security question and answer to "nvars" if prompted.
         </div>
-        <div class="text-h6 q-my-md text-center">Credit Card, Paypal and PAD:</div>
+        <div class="text-h6 q-my-md text-center">Credit Card and Pre-Authorized Debit:</div>
         <div class="flex q-mb-md" style="text-align: center; display:block;">
         <a style="background: #393946 url(https://donorbox.org/images/red_logo.png) no-repeat 37px;color: #fff;text-decoration: none;font-family: Verdana,sans-serif;display: inline-block;font-size: 16px;padding: 15px 38px;padding-left: 75px;-webkit-border-radius: 2px;-moz-border-radius: 2px;border-radius: 2px;box-shadow: 0 1px 0 0 #1f5a89;text-shadow: 0 1px rgba(0, 0, 0, 0.3);" href="https://donorbox.org/nvars-donate?default_interval=o&amount=30">Donate</a>
         </div>

@@ -303,7 +303,8 @@ async function onSubmit() {
     alert("You need to accept the license and terms first", "red-5", "primary");
   } else {
     backenderrors.value = [];
-    const formData = processForm();
+    const questions = JSON.parse(JSON.stringify(activeForm.value)).questions; //retrieves the data from the active question component (deep copy)
+    const formData = combineForm(contact.value, questions);
     //now we need to post the form data to the proper url:
     switch (formType.value) {
       case AdoptForm:
@@ -345,9 +346,7 @@ function handleErrors(error) {
     backenderrors.value.push(`${element}: ${error.data[element]}`);
   }
 }
-function processForm() {
-  const formObject = JSON.parse(JSON.stringify(activeForm.value)); //retrieves the data from the active question component (deep copy)
-  const questions = formObject.questions;
+function combineForm(contact, questions) {
   //convert every array value into a string, there is no need for an array datatype in the database
   for (const question in questions) {
     if (Array.isArray(questions[question])) {
@@ -356,9 +355,9 @@ function processForm() {
   }
   //use the spread operator to add all form entries to formData
   const combinedForm = {
-    ...contact.value,
+    ...contact,
     //call times must be string format to match the database field
-    calltimes: contact.value.calltimes.toString().replace(/,/g, ", "), //adds spaces to the created string from the array for readability
+    calltimes: contact.calltimes.toString().replace(/,/g, ", "), //adds spaces to the created string from the array for readability
     ...questions, //spread operator to append every question here
   };
   return combinedForm;

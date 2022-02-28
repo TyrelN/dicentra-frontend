@@ -1,7 +1,7 @@
 <template>
-  <div class="row q-mx-xs" style="">
+  <div class="row q-mx-xs" id="adopt">
     <div class="col-xs-12 col-md-6 q-pa-md">
-      <div class="">{{adoptQuestions.question1}}</div>
+      <div>{{adoptQuestions.question1}}</div>
       <q-select
         @blur="localUpdate"
         ref="q1"
@@ -50,7 +50,7 @@
       />
     </div>
     <div class="col-xs-12 col-md-6 q-pa-md">
-      <div class="">{{adoptQuestions.question4}}</div>
+      <div>{{adoptQuestions.question4}}</div>
       <q-input
         @blur="localUpdate"
         dense
@@ -438,8 +438,7 @@
 </template>
 
 <script setup>
-import { ref, shallowRef, computed, onMounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { ref, onMounted } from "vue";
 import {adoptQuestions} from '../utils/questions'
 const questions = ref({
   question1: "",

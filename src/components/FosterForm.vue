@@ -1,7 +1,7 @@
 <template>
-  <div class="row q-mx-xs" style="">
+  <div class="row q-mx-xs" id="foster">
     <div class="col-xs-12 col-md-6 q-pa-md">
-      <div class="">{{fosterQuestions.question1}}</div>
+      <div>{{fosterQuestions.question1}}</div>
       <q-field
      @blur="localUpdate"
       hide-bottom-space
@@ -285,8 +285,7 @@
 </template>
 
 <script setup>
-import { ref, shallowRef, computed, onMounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { ref, onMounted } from "vue";
 import {fosterQuestions} from '../utils/questions'
 const questions = ref({
   question1: "",

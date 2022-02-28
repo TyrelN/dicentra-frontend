@@ -17,7 +17,7 @@
         <div style="margin: auto; text-align: center">
           <div class="text-h5">Admin Portal</div>
         </div>
-        <div class="col q-pa-xl" style="margin: auto; max-width: 400px">
+        <div class="col q-py-xl" style="margin: auto; max-width: 400px">
           <q-input
             class="q-mb-md"
             dense
@@ -54,7 +54,7 @@
             <q-btn
               label="Reset Password"
               class="q-mt-lg"
-              padding="xs xl"
+              
               v-if="isAuthenticated"
               color="positive"
               text-color="dark"

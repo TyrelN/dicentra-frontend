@@ -275,7 +275,7 @@ const store = useStore();
 const loading = computed(() => store.getters.loading);
 const isAuthenticated = computed(() => store.getters.isAuthenticated);
 const $q = useQuasar();
-const activeForm = ref(null);
+const activeForm = ref(null); //allows the parsing of component questions in the submit function
 const formType = shallowRef(AdoptForm);
 const accept = ref(false);
 const backenderrors = ref([]);

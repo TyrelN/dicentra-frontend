@@ -70,7 +70,7 @@ module.exports = configure(function (ctx) {
       //distDir: ctx.mode.spa ? 'vercel-public' : null,
       // transpile: false,
       env: {
-        API: ctx.dev ? "http://localhost:8000/" : "https://dicentra-backend-j1wzzsgue-tyreln.vercel.app/"
+        API: ctx.dev ? "http://localhost:8000/" : "https://dicentra-backend.onrender.com/"
       },
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).
@@ -83,7 +83,7 @@ module.exports = configure(function (ctx) {
       // gzip: true,
       // analyze: true,
       extendWebpack(cfg) {
-          cfg.plugins.push(new SitemapPlugin({ base: 'https://nvars.ca', paths, options: {
+          cfg.plugins.push(new SitemapPlugin({ base: 'https://nicolavalleyrescue.ca', paths, options: {
             filename: 'sitemap.xml',
             lastmod: true,
             changefreq: 'weekly',

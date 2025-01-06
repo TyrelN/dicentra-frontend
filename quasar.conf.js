@@ -70,7 +70,7 @@ module.exports = configure(function (ctx) {
       //distDir: ctx.mode.spa ? 'vercel-public' : null,
       // transpile: false,
       env: {
-        API: ctx.dev ? "http://localhost:8000/" : "https://dicentra-backend.onrender.com/"
+        API: ctx.dev ? "http://localhost:8000/" : "https://nicolavalleyrescue.ca/"
       },
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).
